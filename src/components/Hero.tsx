@@ -1,6 +1,6 @@
 import React from 'react';
-import { Phone, MessageSquare, ArrowRight, Sparkles, Check, Droplets, Layers, Building, FileText } from 'lucide-react';
-import { BUSINESS_INFO, BRAND_ASSETS, heroBathtubImg, beforeBathtubImg, serviceBathtubImg } from '../data/content';
+import { Phone, MessageSquare, ArrowRight, Sparkles, Check, Building, FileText, ShieldCheck } from 'lucide-react';
+import { BUSINESS_INFO, BRAND_ASSETS } from '../data/content';
 
 interface HeroProps {
   onOpenEstimate: () => void;
@@ -9,25 +9,16 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, onOpenFlyer }) => {
-  const [sliderPos, setSliderPos] = React.useState<number>(50);
-
   return (
-    <section id="home" className="relative w-full bg-slate-50/50 text-slate-900 overflow-hidden border-b border-slate-200 min-h-[580px] lg:min-h-[660px] flex items-center">
-      {/* High-Resolution Bathtub Cover Photo Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none">
-        <img
-          src={BRAND_ASSETS.coverPhoto}
-          alt="Crystal Refinishing Austin refinished luxury bathtub"
-          className="w-full h-full object-cover object-right md:object-[80%_center] opacity-90"
-        />
-        {/* Soft, clean gradient overlays for crystal-clear text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 sm:via-white/90 md:via-white/80 lg:via-white/65 to-white/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-white/70" />
-      </div>
+    <section id="home" className="relative w-full bg-gradient-to-b from-white via-slate-50/50 to-white text-slate-900 overflow-hidden border-b border-slate-200 min-h-[560px] lg:min-h-[640px] flex items-center">
+      
+      {/* Soft atmospheric radial accents for clean modern look */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-sky-100/30 rounded-full blur-3xl pointer-events-none -z-0" />
+      <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-blue-50/40 rounded-full blur-3xl pointer-events-none -z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 w-full">
         
-        {/* 2-Column Split: Value Proposition on Left, Live Transformation Showcase on Right */}
+        {/* 2-Column Split: Value Proposition on Left, Showcase Photo Card on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
           {/* Left Column: Headlines & Call to Actions */}
@@ -78,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
 
             </div>
 
-            {/* Secondary Contact Note for Alex */}
+            {/* Direct Lines Note for Akbar and Alex */}
             <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 pt-1">
               <span className="font-medium text-slate-400">Direct lines:</span>
               <a href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`} className="text-[#0284c7] hover:underline font-mono font-bold">
@@ -95,27 +86,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
               </a>
             </div>
 
-            {/* Required Core Benefits Strip */}
-            <div className="pt-4 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
-              <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
+            {/* Core Benefits Strip */}
+            <div className="pt-4 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
                 <span className="font-semibold text-slate-800">Affordable Alternative to Replacement</span>
               </div>
-              <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
                 <span className="font-semibold text-slate-800">Beautiful, Like-New Appearance</span>
               </div>
-              <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
                 <span className="font-semibold text-slate-800">Professional Surface Refinishing</span>
               </div>
-              <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
@@ -125,11 +116,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
 
           </div>
 
-          {/* Right Column: Interactive Before & After Transformation Card */}
+          {/* Right Column: User's Cover Photo Card (Replaces the circled before/after slider) */}
           <div className="lg:col-span-5 space-y-4">
             
-            {/* Interactive Before & After Slider Card */}
-            <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-white group">
+            {/* Showcase Card with the Refinished Bathtub Photo */}
+            <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-xl bg-white group transition-all duration-300 hover:shadow-2xl">
               
               {/* Header inside card */}
               <div className="p-3.5 px-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
@@ -143,71 +134,37 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
                   </div>
                   <div>
                     <span className="text-xs font-extrabold text-[#0c2340] block leading-tight">Crystal Refinishing</span>
-                    <span className="text-[10px] font-semibold text-[#0284c7] block leading-tight">Austin Bathtub Transformation</span>
+                    <span className="text-[10px] font-semibold text-[#0284c7] block leading-tight">Austin Bathtub Refinishing</span>
                   </div>
                 </div>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-lg bg-white text-slate-700 border border-slate-300 shadow-2xs">
-                  DRAG TO COMPARE
+                <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  REFINISHED
                 </span>
               </div>
 
-              {/* Interactive Before / After Comparison Area */}
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden select-none touch-none">
-                {/* AFTER Image (Full width background) */}
+              {/* Main Photo: Cover photo uploaded by user */}
+              <div className="relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden bg-slate-100">
                 <img
-                  src={serviceBathtubImg}
-                  alt="Refinished glossy white porcelain bathtub after Crystal Refinishing"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <span className="absolute top-3 right-3 z-10 px-3 py-1 rounded-md bg-[#00a884] text-white text-[11px] font-black tracking-wider uppercase shadow-md">
-                  AFTER
-                </span>
-
-                {/* BEFORE Image (Clipped overlay) */}
-                <div
-                  className="absolute inset-0 overflow-hidden"
-                  style={{ width: `${sliderPos}%` }}
-                >
-                  <img
-                    src={beforeBathtubImg}
-                    alt="Stained worn bathtub before refinishing"
-                    className="absolute inset-0 w-full h-full object-cover max-w-none"
-                    style={{ width: '100%', height: '100%', minWidth: '100%' }}
-                  />
-                  <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-md bg-[#e11d48] text-white text-[11px] font-black tracking-wider uppercase shadow-md">
-                    BEFORE
-                  </span>
-                </div>
-
-                {/* Slider Divider Bar */}
-                <div
-                  className="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_12px_rgba(0,0,0,0.6)] z-20 pointer-events-none"
-                  style={{ left: `calc(${sliderPos}% - 2px)` }}
-                >
-                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white text-[#0096c7] shadow-xl flex items-center justify-center font-bold text-xs border-2 border-[#00b4d8]">
-                    ↔
-                  </div>
-                </div>
-
-                {/* Slider Input Handle */}
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={sliderPos}
-                  onChange={(e) => setSliderPos(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0 p-0"
-                  aria-label="Drag to compare before and after bathtub refinishing"
+                  src={BRAND_ASSETS.coverPhoto}
+                  alt="Crystal Refinishing Austin luxury refinished white bathtub with chrome fixtures"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
 
-                {/* Floating Austin badge */}
-                <div className="absolute bottom-3 right-3 z-20 px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md text-white text-[10px] font-semibold flex items-center gap-1.5 border border-white/10">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                {/* Sparkling Enamel Shine Badge */}
+                <div className="absolute top-3 left-3 z-10 px-3 py-1.5 rounded-lg bg-[#00a884] text-white text-[11px] font-black tracking-wider uppercase shadow-md flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-white" />
+                  <span>FLAWLESS GLOSS FINISH</span>
+                </div>
+
+                {/* Floating Austin Local Badge */}
+                <div className="absolute bottom-3 right-3 z-10 px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md text-white text-[10px] font-semibold flex items-center gap-1.5 border border-white/20 shadow-md">
+                  <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
                   <span>Refinished in Austin, TX</span>
                 </div>
               </div>
 
-              {/* Action bar below preview */}
+              {/* Action bar below photo */}
               <div className="p-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3">
                 <div className="text-left">
                   <div className="text-xs font-bold text-[#0c2340] flex items-center gap-1.5">
@@ -217,7 +174,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
                   <div className="text-[11px] text-slate-500">Ready in 24 hrs · 75% cheaper than replacement</div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   {onOpenFlyer && (
                     <button
                       type="button"
@@ -234,7 +191,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
                     onClick={onExploreGallery}
                     className="px-3 py-1.5 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer shadow-2xs"
                   >
-                    <span>More Photos</span>
+                    <span>Gallery</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -242,7 +199,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
             </div>
 
             {/* Property Management Shortcut Callout */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-3.5 border border-slate-200/90 flex items-center justify-between text-xs shadow-xs">
+            <div className="bg-slate-50 rounded-2xl p-3.5 border border-slate-200 flex items-center justify-between text-xs shadow-2xs">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
                   <Building className="w-4 h-4" />
