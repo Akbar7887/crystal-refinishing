@@ -20,19 +20,19 @@ export const FlyerModal: React.FC<FlyerModalProps> = ({ isOpen, onClose, onOpenE
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="p-4 sm:px-6 bg-[#0c2340] text-white flex items-center justify-between gap-4 border-b border-blue-900/40">
+        <div className="p-4 sm:px-6 bg-white text-slate-900 flex items-center justify-between gap-4 border-b border-slate-200">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center shrink-0 border border-cyan-400/30">
+            <div className="w-10 h-10 rounded-xl bg-sky-50 text-[#0284c7] flex items-center justify-center shrink-0 border border-sky-200">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-sm sm:text-base font-extrabold text-white">Crystal Refinishing</span>
-                <span className="px-2 py-0.5 rounded-full bg-cyan-400/20 text-cyan-300 text-[10px] font-bold uppercase tracking-wider">
+                <span className="text-sm sm:text-base font-extrabold text-[#0c2340]">Crystal Refinishing</span>
+                <span className="px-2 py-0.5 rounded-full bg-sky-50 text-[#0284c7] text-[10px] font-bold uppercase tracking-wider border border-sky-200/60">
                   Official Flyer
                 </span>
               </div>
-              <p className="text-xs text-slate-300">
+              <p className="text-xs text-slate-500">
                 Restore the Shine. Renew Your Tub. • Austin, TX
               </p>
             </div>
@@ -42,7 +42,7 @@ export const FlyerModal: React.FC<FlyerModalProps> = ({ isOpen, onClose, onOpenE
             <button
               type="button"
               onClick={() => setIsZoomed(!isZoomed)}
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-cyan-200 transition-colors"
+              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
               title={isZoomed ? "Zoom out" : "Zoom in"}
             >
               {isZoomed ? <ZoomOut className="w-4 h-4" /> : <ZoomIn className="w-4 h-4" />}
@@ -52,7 +52,7 @@ export const FlyerModal: React.FC<FlyerModalProps> = ({ isOpen, onClose, onOpenE
               download="Crystal_Refinishing_Austin_Flyer.png"
               target="_blank"
               rel="noreferrer"
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-cyan-200 transition-colors flex items-center gap-1.5 text-xs font-bold"
+              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0284c7] transition-colors flex items-center gap-1.5 text-xs font-bold"
               title="Download high-resolution flyer"
             >
               <Download className="w-4 h-4" />
@@ -61,7 +61,7 @@ export const FlyerModal: React.FC<FlyerModalProps> = ({ isOpen, onClose, onOpenE
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl bg-white/10 hover:bg-red-500/80 text-white transition-colors"
+              className="p-2 rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-600 text-slate-600 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -132,49 +132,49 @@ export const FlyerModal: React.FC<FlyerModalProps> = ({ isOpen, onClose, onOpenE
             </div>
 
             {/* Direct Contact from Flyer */}
-            <div className="bg-gradient-to-br from-[#0c2340] to-[#0a192f] text-white rounded-2xl p-5 border border-slate-800 space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-300 block">
+            <div className="bg-slate-50 text-slate-900 rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#0284c7] block">
                 Free Estimate — Call or Text
               </span>
 
               <div className="space-y-2 text-xs">
                 <a
                   href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                  className="p-3 rounded-xl bg-white/10 hover:bg-white/15 flex items-center justify-between text-white transition-all group"
+                  className="p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 flex items-center justify-between text-slate-900 transition-all group shadow-xs"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center">
                       <Phone className="w-3.5 h-3.5" />
                     </div>
                     <div>
-                      <span className="block font-bold">Akbar</span>
-                      <span className="font-mono text-cyan-200">{BUSINESS_INFO.primaryContact.phone}</span>
+                      <span className="block font-bold text-[#0c2340]">Akbar</span>
+                      <span className="font-mono text-[#0284c7] font-semibold">{BUSINESS_INFO.primaryContact.phone}</span>
                     </div>
                   </div>
-                  <span className="text-[10px] uppercase font-bold text-cyan-300 group-hover:underline">Call / Text →</span>
+                  <span className="text-[10px] uppercase font-bold text-[#0284c7] group-hover:underline">Call / Text →</span>
                 </a>
 
                 <a
                   href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`}
-                  className="p-3 rounded-xl bg-white/10 hover:bg-white/15 flex items-center justify-between text-white transition-all group"
+                  className="p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 flex items-center justify-between text-slate-900 transition-all group shadow-xs"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center">
                       <Phone className="w-3.5 h-3.5" />
                     </div>
                     <div>
-                      <span className="block font-bold">Alex</span>
-                      <span className="font-mono text-cyan-200">{BUSINESS_INFO.secondaryContact.phone}</span>
+                      <span className="block font-bold text-[#0c2340]">Alex</span>
+                      <span className="font-mono text-[#0284c7] font-semibold">{BUSINESS_INFO.secondaryContact.phone}</span>
                     </div>
                   </div>
-                  <span className="text-[10px] uppercase font-bold text-cyan-300 group-hover:underline">Call / Text →</span>
+                  <span className="text-[10px] uppercase font-bold text-[#0284c7] group-hover:underline">Call / Text →</span>
                 </a>
 
                 <a
                   href={`mailto:${BUSINESS_INFO.email}`}
-                  className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 flex items-center gap-2 text-slate-300 hover:text-white transition-all"
+                  className="p-2.5 rounded-xl bg-white border border-slate-200 hover:border-sky-300 flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-all"
                 >
-                  <Mail className="w-3.5 h-3.5 text-cyan-400" />
+                  <Mail className="w-3.5 h-3.5 text-[#0284c7]" />
                   <span className="font-mono text-[11px] truncate">{BUSINESS_INFO.email}</span>
                 </a>
               </div>
@@ -186,7 +186,7 @@ export const FlyerModal: React.FC<FlyerModalProps> = ({ isOpen, onClose, onOpenE
                     onClose();
                     onOpenEstimate();
                   }}
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#0284c7] to-[#0ea5e9] hover:from-[#0369a1] hover:to-[#0284c7] text-white font-black text-xs uppercase tracking-wider shadow-lg transition-all"
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#0284c7] to-[#0077e6] hover:from-[#0369a1] hover:to-[#0284c7] text-white font-black text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
                 >
                   Request Online Free Estimate
                 </button>

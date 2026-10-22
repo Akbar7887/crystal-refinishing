@@ -176,43 +176,43 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
           {/* Left Column: Direct Business Information & Contact Cards */}
           <div className="lg:col-span-5 space-y-6">
             
-            <div className="bg-gradient-to-br from-[#0c2340] via-[#0a192f] to-[#0c2340] rounded-3xl p-6 sm:p-8 text-white shadow-lg border border-slate-800 space-y-6">
+            <div className="bg-slate-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-sm border border-slate-200 space-y-6">
               
               <div>
-                <div className="p-3 rounded-2xl bg-white flex items-center justify-center border border-slate-200/80 shadow-md mb-4 max-w-[210px]">
+                <div className="p-3 rounded-2xl bg-white flex items-center justify-center border border-slate-200 shadow-xs mb-4 max-w-[210px]">
                   <img
                     src={BRAND_ASSETS.logo}
                     alt="Crystal Refinishing Logo"
                     className="w-full h-auto object-contain"
                   />
                 </div>
-                <div className="inline-flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
+                <div className="inline-flex items-center gap-2 text-[#0284c7] text-xs font-bold uppercase tracking-wider mb-1">
                   <Droplets className="w-3.5 h-3.5" />
                   <span>Crystal Refinishing</span>
                 </div>
-                <h3 className="text-2xl font-extrabold text-white tracking-tight">
+                <h3 className="text-2xl font-extrabold text-[#0c2340] tracking-tight">
                   Austin, Texas
                 </h3>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-slate-600 mt-1">
                   Serving Austin, Round Rock, Cedar Park, Pflugerville, and nearby Central Texas communities.
                 </p>
               </div>
 
               {/* Direct Contacts: Akbar & Alex */}
               <div className="space-y-3 pt-2">
-                <span className="text-xs font-bold text-cyan-300 uppercase tracking-wider block">
+                <span className="text-xs font-bold text-[#0c2340] uppercase tracking-wider block">
                   Direct Phone Contacts
                 </span>
 
                 {/* Akbar */}
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between hover:bg-white/10 transition-colors">
+                <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
                   <div>
-                    <span className="text-xs text-slate-400 block font-medium">Primary Contact</span>
-                    <strong className="text-sm font-bold text-white">Akbar</strong>
+                    <span className="text-xs text-slate-500 block font-medium">Primary Contact</span>
+                    <strong className="text-sm font-bold text-[#0c2340]">Akbar</strong>
                   </div>
                   <a
                     href="tel:5129055823"
-                    className="px-3.5 py-2 rounded-full bg-[#0284c7] hover:bg-[#0077e6] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm"
+                    className="px-3.5 py-2 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
                   >
                     <Phone className="w-3.5 h-3.5" />
                     <span>512-905-5823</span>
@@ -220,14 +220,14 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
                 </div>
 
                 {/* Alex */}
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between hover:bg-white/10 transition-colors">
+                <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
                   <div>
-                    <span className="text-xs text-slate-400 block font-medium">Secondary Contact</span>
-                    <strong className="text-sm font-bold text-white">Alex</strong>
+                    <span className="text-xs text-slate-500 block font-medium">Secondary Contact</span>
+                    <strong className="text-sm font-bold text-[#0c2340]">Alex</strong>
                   </div>
                   <a
                     href="tel:7372071024"
-                    className="px-3.5 py-2 rounded-full bg-cyan-600/70 hover:bg-cyan-600 text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm"
+                    className="px-3.5 py-2 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
                   >
                     <Phone className="w-3.5 h-3.5" />
                     <span>737-207-1024</span>
@@ -235,16 +235,16 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
                 </div>
 
                 {/* Email */}
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between hover:bg-white/10 transition-colors">
+                <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
                   <div>
-                    <span className="text-xs text-slate-400 block font-medium">Official Inquiries</span>
-                    <strong className="text-xs sm:text-sm font-bold text-white truncate max-w-[170px] sm:max-w-none block">
+                    <span className="text-xs text-slate-500 block font-medium">Official Inquiries</span>
+                    <strong className="text-xs sm:text-sm font-bold text-[#0c2340] truncate max-w-[170px] sm:max-w-none block">
                       888starsllc@gmail.com
                     </strong>
                   </div>
                   <a
                     href="mailto:888starsllc@gmail.com"
-                    className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-cyan-200 text-xs font-bold flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#0284c7] text-xs font-bold flex items-center gap-1.5 transition-colors"
                   >
                     <Mail className="w-3.5 h-3.5" />
                     <span>Email</span>
@@ -253,17 +253,17 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
               </div>
 
               {/* Operating hours & dispatch */}
-              <div className="pt-2 border-t border-white/10 text-xs text-slate-300 space-y-2">
+              <div className="pt-2 border-t border-slate-200 text-xs text-slate-600 space-y-2">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <Clock className="w-4 h-4 text-[#0284c7] shrink-0" />
                   <span>Mon – Sat: 8:00 AM – 6:00 PM</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <MapPin className="w-4 h-4 text-[#0284c7] shrink-0" />
                   <span>Austin Metro & Surrounding Counties</span>
                 </div>
-                <div className="flex items-center gap-2 text-cyan-300 font-semibold">
-                  <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
+                <div className="flex items-center gap-2 text-emerald-700 font-semibold">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>Free, zero-pressure estimates</span>
                 </div>
               </div>
@@ -522,7 +522,7 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#0284c7] via-[#0077e6] to-[#0c2340] hover:from-[#0369a1] hover:to-[#081b33] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-sky-500/25 active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+                      className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#0284c7] to-[#0077e6] hover:from-[#0369a1] hover:to-[#0284c7] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-sky-500/25 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
                       {isSubmitting ? (
                         <>

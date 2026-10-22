@@ -9,48 +9,37 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, onOpenFlyer }) => {
-  return (
-    <section id="home" className="relative w-full bg-gradient-to-b from-slate-900 via-[#0c2340] to-[#0a192f] text-white overflow-hidden border-b border-slate-800">
-      
-      {/* Background Graphic Accents (Water Wave Subtle Curves) */}
-      <div className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden">
-        <svg className="w-full h-full" viewBox="0 0 1440 800" fill="none" preserveAspectRatio="none">
-          <path d="M0,224L60,208C120,192,240,160,360,165.3C480,171,600,213,720,240C840,267,960,277,1080,266.7C1200,256,1320,224,1380,208L1440,192L1440,800L1380,800C1320,800,1200,800,1080,800C960,800,840,800,720,800C600,800,480,800,360,800C240,800,120,800,60,800L0,800Z" fill="url(#waveGradient)" />
-          <defs>
-            <linearGradient id="waveGradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#0284c7" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0.05" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+  const [sliderPos, setSliderPos] = React.useState<number>(50);
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+  return (
+    <section id="home" className="relative w-full bg-white text-slate-900 overflow-hidden border-b border-slate-200 min-h-[560px] lg:min-h-[640px] flex items-center">
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 w-full">
         
-        {/* 2-Column Split: Value Proposition on Left, High-Impact Refinished Tub & Transformation on Right */}
+        {/* 2-Column Split: Value Proposition on Left, Live Transformation Showcase on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
           {/* Left Column: Headlines & Call to Actions */}
           <div className="lg:col-span-7 space-y-6">
             
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-bold tracking-wide">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200/80 text-[#0284c7] text-xs font-bold tracking-wide shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#0284c7]" />
               <span>Restore the Shine. Renew Your Tub.</span>
-              <span aria-hidden="true" className="text-cyan-600">·</span>
-              <span className="text-white">Austin, Texas</span>
+              <span aria-hidden="true" className="text-slate-400">·</span>
+              <span className="text-slate-700 font-semibold">Austin, Texas</span>
             </div>
 
             {/* Exact Required Main Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-extrabold tracking-tight text-white leading-[1.12]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-extrabold tracking-tight text-[#0c2340] leading-[1.14]">
               Professional Bathtub & Bathroom Refinishing in{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-cyan-200 to-white">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0284c7] to-[#0077e6]">
                 Austin, TX
               </span>
             </h1>
 
             {/* Exact Required Supporting Text */}
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl font-normal">
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
               Restore the beauty of your bathtub, shower, sink, or countertop without the high cost of replacement.
             </p>
 
@@ -61,7 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
               <button
                 type="button"
                 onClick={onOpenEstimate}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#0077e6] hover:from-[#0369a1] hover:to-[#0284c7] text-white font-black text-sm sm:text-base tracking-wider uppercase shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-all active:scale-98"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#0077e6] hover:from-[#0369a1] hover:to-[#0284c7] text-white font-black text-sm sm:text-base tracking-wider uppercase shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-all active:scale-98 cursor-pointer"
               >
                 <span>GET A FREE ESTIMATE</span>
                 <ArrowRight className="w-4 h-4" />
@@ -70,113 +59,151 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
               {/* Secondary CTA Button: CALL OR TEXT US (512-905-5823) */}
               <a
                 href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-full bg-white/10 hover:bg-white/15 text-white font-bold text-sm sm:text-base border border-white/20 transition-all active:scale-98"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-full bg-slate-100 hover:bg-slate-200/80 text-[#0c2340] font-bold text-sm sm:text-base border border-slate-200 transition-all active:scale-98 cursor-pointer shadow-2xs"
               >
-                <Phone className="w-4 h-4 text-cyan-300" />
+                <Phone className="w-4 h-4 text-[#0284c7]" />
                 <span>CALL OR TEXT US: {BUSINESS_INFO.primaryContact.phone}</span>
               </a>
 
             </div>
 
             {/* Secondary Contact Note for Alex */}
-            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 pt-1">
-              <span>Direct lines:</span>
-              <a href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`} className="text-cyan-300 hover:underline font-mono font-medium">
+            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 pt-1">
+              <span className="font-medium text-slate-400">Direct lines:</span>
+              <a href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`} className="text-[#0284c7] hover:underline font-mono font-bold">
                 Akbar: {BUSINESS_INFO.primaryContact.phone}
               </a>
-              <span aria-hidden="true" className="text-slate-600">·</span>
-              <a href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`} className="text-cyan-300 hover:underline font-mono font-medium">
+              <span aria-hidden="true" className="text-slate-300">·</span>
+              <a href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`} className="text-[#0284c7] hover:underline font-mono font-bold">
                 Alex: {BUSINESS_INFO.secondaryContact.phone}
               </a>
-              <span aria-hidden="true" className="text-slate-600">·</span>
-              <a href={`sms:${BUSINESS_INFO.primaryContact.phoneRaw}`} className="text-slate-300 hover:text-white flex items-center gap-1">
-                <MessageSquare className="w-3 h-3 text-cyan-400" />
+              <span aria-hidden="true" className="text-slate-300">·</span>
+              <a href={`sms:${BUSINESS_INFO.primaryContact.phoneRaw}`} className="text-slate-600 hover:text-[#0284c7] flex items-center gap-1.5 font-medium">
+                <MessageSquare className="w-3.5 h-3.5 text-[#0284c7]" />
                 <span>Text photos for rapid estimate</span>
               </a>
             </div>
 
             {/* Required Core Benefits Strip */}
-            <div className="pt-4 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+            <div className="pt-4 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
+                <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
-                <span className="font-semibold text-slate-200">Affordable Alternative to Replacement</span>
+                <span className="font-semibold text-slate-800">Affordable Alternative to Replacement</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
+                <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
-                <span className="font-semibold text-slate-200">Beautiful, Like-New Appearance</span>
+                <span className="font-semibold text-slate-800">Beautiful, Like-New Appearance</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
+                <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
-                <span className="font-semibold text-slate-200">Professional Surface Refinishing</span>
+                <span className="font-semibold text-slate-800">Professional Surface Refinishing</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
+                <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
-                <span className="font-semibold text-slate-200">Convenient for Homes & Rental Units</span>
+                <span className="font-semibold text-slate-800">Convenient for Homes & Rental Units</span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: High-Quality Refinished Bathtub + Before & After Preview */}
+          {/* Right Column: Interactive Before & After Transformation Card */}
           <div className="lg:col-span-5 space-y-4">
             
-            {/* Main Hero Card: Gleaming White Bathtub */}
-            <div className="relative rounded-3xl overflow-hidden border border-slate-700/80 shadow-2xl bg-slate-900 group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden">
+            {/* Interactive Before & After Slider Card */}
+            <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-white group">
+              
+              {/* Header inside card */}
+              <div className="p-3.5 px-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="h-6 w-9 overflow-hidden relative shrink-0">
+                    <img
+                      src={BRAND_ASSETS.logo}
+                      alt="Crystal Refinishing Logo"
+                      className="w-full h-auto object-cover object-top -mt-0.5 scale-125"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-xs font-extrabold text-[#0c2340] block leading-tight">Crystal Refinishing</span>
+                    <span className="text-[10px] font-semibold text-[#0284c7] block leading-tight">Austin Bathtub Transformation</span>
+                  </div>
+                </div>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-lg bg-white text-slate-700 border border-slate-300 shadow-2xs">
+                  DRAG TO COMPARE
+                </span>
+              </div>
+
+              {/* Interactive Before / After Comparison Area */}
+              <div className="relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden select-none touch-none">
+                {/* AFTER Image (Full width background) */}
                 <img
-                  src={BRAND_ASSETS.coverPhoto}
-                  alt="Professionally refinished glossy white porcelain bathtub in Austin luxury bathroom - Crystal Refinishing"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                  loading="eager"
+                  src={serviceBathtubImg}
+                  alt="Refinished glossy white porcelain bathtub after Crystal Refinishing"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
-                
-                {/* Surface Shine & Official Logo Badge */}
-                <div className="absolute top-4 left-4 p-1.5 pr-3 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-lg flex items-center gap-2">
+                <span className="absolute top-3 right-3 z-10 px-3 py-1 rounded-md bg-[#00a884] text-white text-[11px] font-black tracking-wider uppercase shadow-md">
+                  AFTER
+                </span>
+
+                {/* BEFORE Image (Clipped overlay) */}
+                <div
+                  className="absolute inset-0 overflow-hidden"
+                  style={{ width: `${sliderPos}%` }}
+                >
                   <img
-                    src={BRAND_ASSETS.logo}
-                    alt="Crystal Refinishing Logo"
-                    className="h-7 w-auto object-contain"
+                    src={beforeBathtubImg}
+                    alt="Stained worn bathtub before refinishing"
+                    className="absolute inset-0 w-full h-full object-cover max-w-none"
+                    style={{ width: '100%', height: '100%', minWidth: '100%' }}
                   />
-                  <div className="flex flex-col text-left">
-                    <span className="text-[10px] font-extrabold text-[#0c2340] leading-tight">Crystal Refinishing</span>
-                    <span className="text-[9px] font-semibold text-[#0284c7] leading-tight">Glossy Enamel Finish</span>
+                  <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-md bg-[#e11d48] text-white text-[11px] font-black tracking-wider uppercase shadow-md">
+                    BEFORE
+                  </span>
+                </div>
+
+                {/* Slider Divider Bar */}
+                <div
+                  className="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_12px_rgba(0,0,0,0.6)] z-20 pointer-events-none"
+                  style={{ left: `calc(${sliderPos}% - 2px)` }}
+                >
+                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white text-[#0096c7] shadow-xl flex items-center justify-center font-bold text-xs border-2 border-[#00b4d8]">
+                    ↔
                   </div>
                 </div>
 
-                <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white text-[11px] font-semibold flex items-center gap-1.5 border border-white/10">
+                {/* Slider Input Handle */}
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={sliderPos}
+                  onChange={(e) => setSliderPos(Number(e.target.value))}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0 p-0"
+                  aria-label="Drag to compare before and after bathtub refinishing"
+                />
+
+                {/* Floating Austin badge */}
+                <div className="absolute bottom-3 right-3 z-20 px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md text-white text-[10px] font-semibold flex items-center gap-1.5 border border-white/10">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
                   <span>Refinished in Austin, TX</span>
                 </div>
               </div>
 
-              {/* Before-and-After Gallery Mini Preview Bar */}
-              <div className="p-4 bg-gradient-to-r from-slate-900 to-[#0c2340] border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-2">
-                    <img
-                      src={beforeBathtubImg}
-                      alt="Worn stained bathtub before refinishing"
-                      className="w-10 h-10 rounded-full object-cover border-2 border-slate-800 ring-2 ring-red-400/50"
-                    />
-                    <img
-                      src={serviceBathtubImg}
-                      alt="Refinished bathtub after restoration"
-                      className="w-10 h-10 rounded-full object-cover border-2 border-slate-800 ring-2 ring-emerald-400/50"
-                    />
+              {/* Action bar below preview */}
+              <div className="p-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3">
+                <div className="text-left">
+                  <div className="text-xs font-bold text-[#0c2340] flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#0284c7]" />
+                    <span>Flawless Enamel Shine</span>
                   </div>
-                  <div className="text-left">
-                    <div className="text-xs font-bold text-white">Before & After Preview</div>
-                    <div className="text-[11px] text-slate-400">See surface transformations</div>
-                  </div>
+                  <div className="text-[11px] text-slate-500">Ready in 24 hrs · 75% cheaper than replacement</div>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -184,19 +211,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
                     <button
                       type="button"
                       onClick={onOpenFlyer}
-                      className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-cyan-200 border border-white/20 text-xs font-bold transition-colors flex items-center gap-1"
+                      className="px-3 py-1.5 rounded-full bg-white hover:bg-slate-100 text-[#0284c7] border border-slate-200 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer shadow-2xs"
                       title="View official service flyer"
                     >
-                      <FileText className="w-3 h-3 text-cyan-400" />
+                      <FileText className="w-3 h-3 text-[#0284c7]" />
                       <span>Flyer</span>
                     </button>
                   )}
                   <button
                     type="button"
                     onClick={onExploreGallery}
-                    className="px-3.5 py-1.5 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-500/40 text-xs font-bold transition-colors flex items-center gap-1"
+                    className="px-3 py-1.5 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer shadow-2xs"
                   >
-                    <span>View Gallery</span>
+                    <span>More Photos</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -204,17 +231,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
             </div>
 
             {/* Property Management Shortcut Callout */}
-            <div className="bg-gradient-to-r from-sky-950/40 to-slate-900/60 rounded-2xl p-4 border border-sky-800/40 flex items-center justify-between text-xs">
+            <div className="bg-slate-50 rounded-2xl p-3.5 border border-slate-200 flex items-center justify-between text-xs shadow-2xs">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
                   <Building className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="font-bold text-white block">Property Managers & Landlords</span>
-                  <span className="text-slate-400 text-[11px]">Turnover refinishing & multi-unit pricing</span>
+                  <span className="font-bold text-[#0c2340] block">Property Managers & Landlords</span>
+                  <span className="text-slate-500 text-[11px]">Turnover refinishing & multi-unit pricing</span>
                 </div>
               </div>
-              <a href="#property-management" className="text-cyan-300 font-bold hover:underline shrink-0">
+              <a href="#property-management" className="text-[#0284c7] font-bold hover:underline shrink-0 pl-2">
                 Explore →
               </a>
             </div>

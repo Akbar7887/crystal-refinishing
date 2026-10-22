@@ -91,28 +91,24 @@ export const PropertyManagementSection: React.FC = () => {
   };
 
   return (
-    <section id="property-management" className="py-16 sm:py-24 bg-gradient-to-b from-[#0c2340] to-[#0a192f] text-white border-b border-slate-800 relative overflow-hidden">
+    <section id="property-management" className="py-16 sm:py-24 bg-slate-50 text-slate-900 border-b border-slate-200 relative overflow-hidden">
       
-      {/* Background Subtle Water Accent */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-500/30 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-3">
-            <Building2 className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100/70 border border-sky-200 text-[#0284c7] text-xs font-bold uppercase tracking-wider mb-3">
+            <Building2 className="w-3.5 h-3.5 text-[#0284c7]" />
             <span>Commercial & Multi-Family Solutions</span>
           </div>
 
           {/* Exact Required Headline */}
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#0c2340] tracking-tight">
             Bathroom Refinishing for Property Managers & Rental Properties
           </h2>
 
           {/* Exact Required Description */}
-          <p className="mt-4 text-slate-300 text-base leading-relaxed">
+          <p className="mt-4 text-slate-600 text-base leading-relaxed">
             Keep your rental properties looking clean and attractive while exploring a cost-effective alternative to replacing worn bathtubs, shower bases, and sinks.
           </p>
         </div>
@@ -123,89 +119,89 @@ export const PropertyManagementSection: React.FC = () => {
           {/* Left Column: Property Management Benefits & Direct Contacts */}
           <div className="lg:col-span-5 space-y-6">
             
-            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-white/10 space-y-5">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2.5">
-                <ShieldCheck className="w-5 h-5 text-cyan-400" />
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-5">
+              <h3 className="text-xl font-bold text-[#0c2340] flex items-center gap-2.5">
+                <ShieldCheck className="w-5 h-5 text-[#0284c7]" />
                 <span>Tailored for Austin Property Teams</span>
               </h3>
 
               {/* Exact Highlighted Benefits */}
               <div className="space-y-4 pt-1">
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0 mt-0.5">
                     <CheckCircle2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">Cost-conscious maintenance solutions</h4>
-                    <p className="text-xs text-slate-300 mt-0.5">Stretch maintenance and capital improvement budgets with competitive volume rates.</p>
+                    <h4 className="text-sm font-bold text-[#0c2340]">Cost-conscious maintenance solutions</h4>
+                    <p className="text-xs text-slate-600 mt-0.5">Stretch maintenance and capital improvement budgets with competitive volume rates.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0 mt-0.5">
                     <Clock className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">Convenient scheduling</h4>
-                    <p className="text-xs text-slate-300 mt-0.5">We work with your leasing windows and maintenance staff to minimize vacancy downtime.</p>
+                    <h4 className="text-sm font-bold text-[#0c2340]">Convenient scheduling</h4>
+                    <p className="text-xs text-slate-600 mt-0.5">We work with your leasing windows and maintenance staff to minimize vacancy downtime.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0 mt-0.5">
                     <Building2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">Services for rental properties & apartments</h4>
-                    <p className="text-xs text-slate-300 mt-0.5">Bathtubs, shower pans, bathroom sinks, and vanity countertops refreshed efficiently.</p>
+                    <h4 className="text-sm font-bold text-[#0c2340]">Services for rental properties & apartments</h4>
+                    <p className="text-xs text-slate-600 mt-0.5">Bathtubs, shower pans, bathroom sinks, and vanity countertops refreshed efficiently.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0 mt-0.5">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">Support for property turnover & maintenance projects</h4>
-                    <p className="text-xs text-slate-300 mt-0.5">Prepare units for upcoming move-ins without weeks of loud demolition or dust.</p>
+                    <h4 className="text-sm font-bold text-[#0c2340]">Support for property turnover & maintenance projects</h4>
+                    <p className="text-xs text-slate-600 mt-0.5">Prepare units for upcoming move-ins without weeks of loud demolition or dust.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0 mt-0.5">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">Direct communication</h4>
-                    <p className="text-xs text-slate-300 mt-0.5">Speak directly with Akbar and Alex for bids, timelines, and job scheduling.</p>
+                    <h4 className="text-sm font-bold text-[#0c2340]">Direct communication</h4>
+                    <p className="text-xs text-slate-600 mt-0.5">Speak directly with Akbar and Alex for bids, timelines, and job scheduling.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0 mt-0.5">
                     <CheckCircle2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">Free estimates</h4>
-                    <p className="text-xs text-slate-300 mt-0.5">Send a unit list, photos, or schedule an on-site property walkthrough in Austin.</p>
+                    <h4 className="text-sm font-bold text-[#0c2340]">Free estimates</h4>
+                    <p className="text-xs text-slate-600 mt-0.5">Send a unit list, photos, or schedule an on-site property walkthrough in Austin.</p>
                   </div>
                 </div>
               </div>
 
               {/* Direct PM Hotline */}
-              <div className="pt-4 border-t border-white/10 flex flex-col gap-2 text-xs">
-                <span className="text-slate-400 font-medium">Direct Property Management Line:</span>
+              <div className="pt-4 border-t border-slate-200 flex flex-col gap-2 text-xs">
+                <span className="text-slate-500 font-medium">Direct Property Management Line:</span>
                 <div className="flex flex-wrap gap-4">
                   <a
                     href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                    className="text-cyan-300 font-bold hover:underline flex items-center gap-1 font-mono"
+                    className="text-[#0284c7] font-bold hover:underline flex items-center gap-1 font-mono"
                   >
                     <Phone className="w-3.5 h-3.5" />
                     <span>Akbar: {BUSINESS_INFO.primaryContact.phone}</span>
                   </a>
                   <a
                     href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`}
-                    className="text-cyan-300 font-bold hover:underline flex items-center gap-1 font-mono"
+                    className="text-[#0284c7] font-bold hover:underline flex items-center gap-1 font-mono"
                   >
                     <Phone className="w-3.5 h-3.5" />
                     <span>Alex: {BUSINESS_INFO.secondaryContact.phone}</span>

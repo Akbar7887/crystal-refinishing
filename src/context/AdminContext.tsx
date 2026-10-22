@@ -179,7 +179,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       location: BUSINESS_INFO.location,
       servingArea: BUSINESS_INFO.servingArea,
       hours: BUSINESS_INFO.hours,
-      announcementEnabled: true,
+      announcementEnabled: false,
       announcementText: "💧 Free Estimates for Austin Bathtub & Bathroom Surface Refinishing! Call Akbar: 512-905-5823 or Alex: 737-207-1024",
       owner: BUSINESS_INFO.primaryContact.name,
       phone: BUSINESS_INFO.primaryContact.phone,

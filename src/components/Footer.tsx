@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
 
   return (
     <>
-      <footer className="bg-[#0a192f] text-slate-300 border-t border-slate-800 text-sm">
+      <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
           
           {/* Main Footer Columns */}

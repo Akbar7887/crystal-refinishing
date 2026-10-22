@@ -47,13 +47,15 @@ export interface RefinishingService {
 
 export interface BeforeAfterProject {
   id: string;
-  category: 'bathtub' | 'shower' | 'sink' | 'countertop';
+  category: 'bathtub' | 'shower' | 'sink' | 'countertop' | 'color-change' | 'jacuzzi';
   categoryLabel: string;
   title: string;
   description: string;
   location: string;
   beforeImage: string;
   afterImage: string;
+  compositeImage?: string;
+  tag?: string;
   transformationHighlights: string[];
 }
 
@@ -160,9 +162,146 @@ export const REFINISHING_SERVICES: RefinishingService[] = [
 
 export const BEFORE_AFTER_GALLERY: BeforeAfterProject[] = [
   {
+    id: "ba-bathtub-rust-drain",
+    category: "bathtub",
+    categoryLabel: "Bathtubs",
+    tag: "Severe Rust Removal",
+    title: "Heavy Drain Rust & Mineral Staining Restoration",
+    description: "Deep chemical rust neutralization, mechanical acid etching, and multi-layer bright white liquid porcelain refinishing.",
+    location: "Austin, TX (Hyde Park)",
+    beforeImage: "/assets/aistudio/3132E4E4-6762-4079-B8DB-B016B0EB4E04_4_5005_c_c9998919.jpeg",
+    afterImage: "/assets/aistudio/3132E4E4-6762-4079-B8DB-B016B0EB4E04_4_5005_c_c9998919.jpeg",
+    compositeImage: "/assets/aistudio/3132E4E4-6762-4079-B8DB-B016B0EB4E04_4_5005_c_c9998919.jpeg",
+    transformationHighlights: [
+      "Completely removed heavy rust channel down to the drain",
+      "Applied corrosion inhibitor and proprietary bonding agent",
+      "Restored smooth, high-gloss brilliant white finish"
+    ]
+  },
+  {
+    id: "ba-bathtub-no-marks",
+    category: "bathtub",
+    categoryLabel: "Bathtubs",
+    tag: "Zero Orange Peel",
+    title: "Deep Grime & Caulk Edge Enamel Re-Glaze",
+    description: "Heavy grime, mineral scaling, and caulk line degradation renewed into an ultra-smooth porcelain surface with no brush marks or lines.",
+    location: "Austin, TX (Riverside)",
+    beforeImage: "/assets/aistudio/47DDFA3E-0A79-45F0-8B2F-E2BFF87517CE_81d5d7c3.png",
+    afterImage: "/assets/aistudio/47DDFA3E-0A79-45F0-8B2F-E2BFF87517CE_81d5d7c3.png",
+    compositeImage: "/assets/aistudio/47DDFA3E-0A79-45F0-8B2F-E2BFF87517CE_81d5d7c3.png",
+    transformationHighlights: [
+      "No orange peel texture, no lines, and zero brush marks",
+      "Sanitized and sealed perimeter tile caulk joints",
+      "Commercial-grade pour-on glaze ready in 24 hours"
+    ]
+  },
+  {
+    id: "ba-bathtub-peeling-diy",
+    category: "bathtub",
+    categoryLabel: "Bathtubs",
+    tag: "Peeling Paint Stripped",
+    title: "Failed DIY Epoxy Paint Stripping & Permanent Refinish",
+    description: "Stripped extensive flaking DIY paint down to the original cast iron substrate, primed with cross-linking silane, and glazed.",
+    location: "Austin, TX (Central East Austin)",
+    beforeImage: "/assets/aistudio/42543BA9-EF08-40FB-B7DE-52AF08EAD003_aa60d8b6.png",
+    afterImage: "/assets/aistudio/42543BA9-EF08-40FB-B7DE-52AF08EAD003_aa60d8b6.png",
+    compositeImage: "/assets/aistudio/42543BA9-EF08-40FB-B7DE-52AF08EAD003_aa60d8b6.png",
+    transformationHighlights: [
+      "100% stripped failing and flaking DIY tub kit coating",
+      "Mechanically smoothed base to eliminate all ridges",
+      "Applied permanent non-peeling molecular bonding enamel"
+    ]
+  },
+  {
+    id: "ba-jacuzzi-pink-modern",
+    category: "color-change",
+    categoryLabel: "Color Modernization",
+    tag: "Pink to Gloss White",
+    title: "Dated Pink Garden Whirlpool Tub Modernization",
+    description: "Modernized an outdated 1980s pink / mauve acrylic whirlpool tub into crisp architectural white while preserving jet function.",
+    location: "Austin, TX (Westlake Hills)",
+    beforeImage: "/assets/aistudio/A0C206B3-8E30-4596-9F8C-66BB3876D1C5_efd5e59a.png",
+    afterImage: "/assets/aistudio/A0C206B3-8E30-4596-9F8C-66BB3876D1C5_efd5e59a.png",
+    compositeImage: "/assets/aistudio/A0C206B3-8E30-4596-9F8C-66BB3876D1C5_efd5e59a.png",
+    transformationHighlights: [
+      "Eliminated retro mauve/pink color with zero tub removal",
+      "Meticulously masked jet nozzles and tile surround",
+      "Saved homeowner over $5,500 compared to full demolition"
+    ]
+  },
+  {
+    id: "ba-bathtub-yellowed-deep",
+    category: "bathtub",
+    categoryLabel: "Bathtubs",
+    tag: "Yellowing & Oxidation",
+    title: "Severely Yellowed Soaking Tub Surface Renewal",
+    description: "Deep chemical prep removed 15+ years of hard water mineral discoloration, followed by ultra-high gloss liquid enamel.",
+    location: "Cedar Park, TX",
+    beforeImage: "/assets/aistudio/D89770FD-CFD7-450F-86AD-CB7617B22852_7c7da67a.png",
+    afterImage: "/assets/aistudio/D89770FD-CFD7-450F-86AD-CB7617B22852_7c7da67a.png",
+    compositeImage: "/assets/aistudio/D89770FD-CFD7-450F-86AD-CB7617B22852_7c7da67a.png",
+    transformationHighlights: [
+      "Replaced dull yellowed finish with brilliant white luster",
+      "Resistant to Austin hard water stains and scuffs",
+      "Completed in 3.5 hours with virtually zero fumes"
+    ]
+  },
+  {
+    id: "ba-bathtub-chips-cast-iron",
+    category: "bathtub",
+    categoryLabel: "Bathtubs",
+    tag: "Deep Chip Repair",
+    title: "Raw Cast Iron Impact Chip Repair & Coating",
+    description: "Filled and bonded multiple deep black impact gouges on the bathtub floor down to raw metal before applying the final porcelain glaze.",
+    location: "Round Rock, TX",
+    beforeImage: "/assets/aistudio/2FA870AE-7CED-4E11-A5AE-DA869924D856_259a6e5c.png",
+    afterImage: "/assets/aistudio/2FA870AE-7CED-4E11-A5AE-DA869924D856_259a6e5c.png",
+    compositeImage: "/assets/aistudio/2FA870AE-7CED-4E11-A5AE-DA869924D856_259a6e5c.png",
+    transformationHighlights: [
+      "Precision-filled 6+ deep chipped areas on the floor basin",
+      "Seamless finish with zero visible patch lines",
+      "Heavy-duty impact resistance and 5-year warranty"
+    ]
+  },
+  {
+    id: "ba-bathtub-subway-tile",
+    category: "bathtub",
+    categoryLabel: "Bathtubs",
+    tag: "Subway Tile Surround",
+    title: "Vintage Cast Iron Tub & Subway Tile Refresh",
+    description: "Revived a discolored, dull tub basin in a classic subway tile bathroom, achieving an immaculate reflective showroom gloss.",
+    location: "Pflugerville, TX",
+    beforeImage: "/assets/aistudio/EB303B2A-E7E0-4DA5-B676-3208DC411F58_87718dfc.png",
+    afterImage: "/assets/aistudio/EB303B2A-E7E0-4DA5-B676-3208DC411F58_87718dfc.png",
+    compositeImage: "/assets/aistudio/EB303B2A-E7E0-4DA5-B676-3208DC411F58_87718dfc.png",
+    transformationHighlights: [
+      "Restored deep porcelain sheen matching clean white tile",
+      "Sealed vulnerable corners and caulk transitions",
+      "Silky smooth underfoot feel with anti-slip option"
+    ]
+  },
+  {
+    id: "ba-color-change-almond",
+    category: "color-change",
+    categoryLabel: "Color Modernization",
+    tag: "Almond to Gloss White",
+    title: "1970s Almond / Beige Bathtub Color Conversion",
+    description: "Transformed an outdated 1970s beige/almond bathtub and tile enclosure into modern high-gloss bright white without replacement.",
+    location: "Austin, TX (Barton Hills)",
+    beforeImage: "/assets/aistudio/5F27DCA8-0A20-4FFF-BFFE-4FAB95809325_a8a5164f.png",
+    afterImage: "/assets/aistudio/5F27DCA8-0A20-4FFF-BFFE-4FAB95809325_a8a5164f.png",
+    compositeImage: "/assets/aistudio/5F27DCA8-0A20-4FFF-BFFE-4FAB95809325_a8a5164f.png",
+    transformationHighlights: [
+      "Converted dark dated almond surface to vibrant bright white",
+      "Brightened entire bathroom lighting and aesthetic",
+      "Saved property owner thousands over replacement costs"
+    ]
+  },
+  {
     id: "ba-bathtub-1",
     category: "bathtub",
     categoryLabel: "Bathtubs",
+    tag: "Interactive Slider",
     title: "Porcelain Cast Iron Bathtub Transformation",
     description: "Deep surface cleaning, etching, chip repair, and multi-layer glossy white enamel refinishing.",
     location: "Austin, TX (South Congress)",
@@ -178,6 +317,7 @@ export const BEFORE_AFTER_GALLERY: BeforeAfterProject[] = [
     id: "ba-shower-1",
     category: "shower",
     categoryLabel: "Shower Bases",
+    tag: "Interactive Slider",
     title: "Fiberglass Walk-In Shower Pan Refinishing",
     description: "Restored yellowed, dull fiberglass shower pan with a bright, clean, water-resistant surface.",
     location: "Austin, TX (Mueller)",
@@ -193,6 +333,7 @@ export const BEFORE_AFTER_GALLERY: BeforeAfterProject[] = [
     id: "ba-sink-1",
     category: "sink",
     categoryLabel: "Sinks",
+    tag: "Interactive Slider",
     title: "Vintage Porcelain Bathroom Sink Reglazing",
     description: "Refreshed a dull, chipped bathroom vanity basin to mirror-like brilliance without replacing the countertop.",
     location: "Austin, TX (The Domain)",
@@ -208,6 +349,7 @@ export const BEFORE_AFTER_GALLERY: BeforeAfterProject[] = [
     id: "ba-counter-1",
     category: "countertop",
     categoryLabel: "Countertops",
+    tag: "Interactive Slider",
     title: "Cultured Marble Vanity Countertop Renewal",
     description: "Modernized an outdated yellowed cultured marble vanity top with a durable multi-tone stone-effect finish.",
     location: "Round Rock, TX (Rental Property)",

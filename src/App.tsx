@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { TestimonialsSection } from './components/TestimonialsSection';
 import { ServicesSection } from './components/ServicesSection';
 import { BeforeAfterGallery } from './components/BeforeAfterGallery';
-import { PropertyManagementSection } from './components/PropertyManagementSection';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { HowItWorks } from './components/HowItWorks';
 import { AboutUs } from './components/AboutUs';
@@ -72,47 +72,50 @@ function WebsiteContent() {
       />
 
       <main className="flex-1">
-        {/* 2. Hero Section: Austin Refinishing Value Proposition */}
+        {/* 1. Hero: Austin Refinishing Value Proposition & Interactive Slider */}
         <Hero 
           onOpenEstimate={scrollToContact} 
           onExploreGallery={scrollToGallery} 
           onOpenFlyer={() => setIsFlyerOpen(true)}
         />
 
-        {/* 3. Our Services: Dedicated cards with images, descriptions & CTAs */}
+        {/* 2. Services: Core Refinishing Services Cards */}
         <ServicesSection 
           onSelectServiceEstimate={handleSelectServiceEstimate} 
           onOpenFlyer={() => setIsFlyerOpen(true)}
         />
 
-        {/* 4. Before & After Gallery: 4 Categories, Interactive Sliders & Lightbox */}
+        {/* 3. The Pour-On Advantage: 4 Simple Punchy Cards & Commercial Callout */}
+        <WhyChooseUs 
+          onOpenFlyer={() => setIsFlyerOpen(true)} 
+          onOpenEstimate={scrollToContact}
+        />
+
+        {/* 4. Before & After Gallery: Interactive Sliders & Real Austin Projects */}
         <BeforeAfterGallery 
           onRequestEstimateForProject={handleProjectEstimate} 
           onOpenFlyer={() => setIsFlyerOpen(true)}
         />
 
-        {/* 5. Property Management Services: Specialized solutions for apartments & rentals */}
-        <PropertyManagementSection />
+        {/* 5. Verified Austin Customer Reviews */}
+        <TestimonialsSection />
 
-        {/* 6. Why Choose Crystal Refinishing?: Honest benefits, blue icons */}
-        <WhyChooseUs onOpenFlyer={() => setIsFlyerOpen(true)} />
-
-        {/* 7. How It Works: 4-Step clear process */}
+        {/* 6. How It Works: 4-Step clear process */}
         <HowItWorks onOpenEstimate={scrollToContact} />
 
-        {/* 8. About Us: Founders Akbar & Alex, brand values */}
+        {/* 7. About Us: Founders Akbar & Alex */}
         <AboutUs />
 
-        {/* 9. Frequently Asked Questions */}
+        {/* 8. Frequently Asked Questions */}
         <FaqSection />
 
-        {/* 10. Contact Us & Free Estimate Request Form (with optional photo upload) */}
+        {/* 9. Contact Us & Free Estimate Request Form */}
         <LeadCaptureForm 
           initialServiceId={selectedServiceId} 
           initialDetails={estimateDetails}
         />
 
-        {/* 10. Service Areas: Austin Metro & Surrounding Areas with ZIP verification */}
+        {/* 10. Service Areas: Austin Metro */}
         <ServiceArea />
       </main>
 
