@@ -12,7 +12,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
   const [sliderPos, setSliderPos] = React.useState<number>(50);
 
   return (
-    <section id="home" className="relative w-full bg-white text-slate-900 overflow-hidden border-b border-slate-200 min-h-[560px] lg:min-h-[640px] flex items-center">
+    <section id="home" className="relative w-full bg-slate-50/50 text-slate-900 overflow-hidden border-b border-slate-200 min-h-[580px] lg:min-h-[660px] flex items-center">
+      {/* High-Resolution Bathtub Cover Photo Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        <img
+          src={BRAND_ASSETS.coverPhoto}
+          alt="Crystal Refinishing Austin refinished luxury bathtub"
+          className="w-full h-full object-cover object-right md:object-[80%_center] opacity-90"
+        />
+        {/* Soft, clean gradient overlays for crystal-clear text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 sm:via-white/90 md:via-white/80 lg:via-white/65 to-white/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-white/70" />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 w-full">
         
@@ -85,26 +96,26 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
             </div>
 
             {/* Required Core Benefits Strip */}
-            <div className="pt-4 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
-              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
+            <div className="pt-4 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+              <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
                 <span className="font-semibold text-slate-800">Affordable Alternative to Replacement</span>
               </div>
-              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
+              <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
                 <span className="font-semibold text-slate-800">Beautiful, Like-New Appearance</span>
               </div>
-              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
+              <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
                 <span className="font-semibold text-slate-800">Professional Surface Refinishing</span>
               </div>
-              <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs">
+              <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
@@ -231,7 +242,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
             </div>
 
             {/* Property Management Shortcut Callout */}
-            <div className="bg-slate-50 rounded-2xl p-3.5 border border-slate-200 flex items-center justify-between text-xs shadow-2xs">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-3.5 border border-slate-200/90 flex items-center justify-between text-xs shadow-xs">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
                   <Building className="w-4 h-4" />
