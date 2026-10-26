@@ -131,7 +131,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimate, onOpenPropertyMa
                 )}
               </div>
 
-              {/* 2. Before & After */}
+              {/* 2. Pricing */}
+              <a href="#pricing" className="hover:text-[#0284c7] transition-colors whitespace-nowrap py-2 font-bold text-[#0c2340] flex items-center gap-1">
+                <span>Pricing</span>
+                <span className="text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  Save 75%
+                </span>
+              </a>
+
+              {/* 3. Before & After */}
               <a href="#gallery" className="hover:text-[#0284c7] transition-colors whitespace-nowrap py-2">
                 Before & After
               </a>
@@ -277,6 +285,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimate, onOpenPropertyMa
                 className="px-3 py-2 rounded-lg hover:bg-slate-50 text-[#0c2340] font-bold"
               >
                 Our Services
+              </a>
+              <a
+                href="#pricing"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg hover:bg-slate-50 text-[#0c2340] font-bold flex items-center justify-between"
+              >
+                <span>Transparent Pricing</span>
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  From $185
+                </span>
               </a>
               <a
                 href="#gallery"

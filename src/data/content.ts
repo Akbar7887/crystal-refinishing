@@ -39,6 +39,9 @@ export interface RefinishingService {
   fallbackImage?: string;
   features: string[];
   startingPrice?: string;
+  priceRange?: string;
+  replacementCost?: string;
+  typicalSavings?: string;
   typicalTime?: string;
   shortDesc?: string;
   fullDesc?: string;
@@ -102,6 +105,11 @@ export const REFINISHING_SERVICES: RefinishingService[] = [
     description: "Restore your worn, stained, or outdated bathtub with a fresh, smooth, glossy finish. Refinishing can be an affordable alternative to replacing an existing bathtub.",
     ctaText: "Get a Bathtub Refinishing Estimate",
     image: serviceBathtubImg,
+    startingPrice: "$510",
+    priceRange: "Starting at $510",
+    replacementCost: "$2,500 – $4,000+",
+    typicalSavings: "Save up to 75%",
+    typicalTime: "3–4 hrs (Ready in 24 hrs)",
     features: [
       "Smooth, high-gloss white or almond finish",
       "Addresses chips, scratches, and mineral discoloration",
@@ -118,6 +126,11 @@ export const REFINISHING_SERVICES: RefinishingService[] = [
     description: "Refresh the appearance of worn shower bases and restore a clean, bright finish without the expense of full replacement.",
     ctaText: "Get a Shower Base Estimate",
     image: serviceShowerImg,
+    startingPrice: "$395",
+    priceRange: "Starting at $395",
+    replacementCost: "$1,800 – $3,200+",
+    typicalSavings: "Save up to 80%",
+    typicalTime: "2–3 hrs (Ready in 24 hrs)",
     features: [
       "Ideal for fiberglass, acrylic, and cast iron pans",
       "Restores dingy, hard-to-clean porous floors",
@@ -134,6 +147,11 @@ export const REFINISHING_SERVICES: RefinishingService[] = [
     description: "Improve the appearance of worn bathroom sinks with professional refinishing designed to give the surface a fresh, renewed look.",
     ctaText: "Get a Sink Refinishing Estimate",
     image: serviceSinkImg,
+    startingPrice: "$295",
+    priceRange: "Starting at $295",
+    replacementCost: "$500 – $950+",
+    typicalSavings: "Save up to 70%",
+    typicalTime: "1.5–2 hrs (Ready in 24 hrs)",
     features: [
       "Suitable for pedestal sinks, drop-ins, and undermounts",
       "Repairs small chips, crazing, and dull spots",
@@ -150,6 +168,11 @@ export const REFINISHING_SERVICES: RefinishingService[] = [
     description: "Refresh the appearance of suitable worn countertops with a renewed finish as an alternative to replacement.",
     ctaText: "Get a Countertop Estimate",
     image: serviceCounterImg,
+    startingPrice: "$260",
+    priceRange: "$260 – $390",
+    replacementCost: "$1,500 – $3,000+",
+    typicalSavings: "Save up to 75%",
+    typicalTime: "2–4 hrs (Ready in 24 hrs)",
     features: [
       "Transforms outdated laminate, tile, or cultured marble",
       "Available in modern solid or decorative stone-fleck looks",
@@ -159,6 +182,153 @@ export const REFINISHING_SERVICES: RefinishingService[] = [
     ]
   }
 ];
+
+export interface PricingPlan {
+  id: string;
+  name: string;
+  badge?: string;
+  price: string;
+  priceSub?: string;
+  warranty?: string;
+  description: string;
+  replacementCost?: string;
+  savings?: string;
+  duration?: string;
+  cureTime?: string;
+  features: string[];
+  popular?: boolean;
+  serviceId: string;
+}
+
+export const PRICING_PLANS: PricingPlan[] = [
+  {
+    id: "pricing-bathtub-reglazing",
+    name: "Bathtub Reglazing",
+    badge: "Most Popular",
+    price: "Starting at $510",
+    priceSub: "Standard Tub",
+    warranty: "5-Year Warranty",
+    description: "Complete professional restoration for standard porcelain, cast iron, or acrylic bathtubs.",
+    replacementCost: "$2,500 – $4,500+",
+    savings: "Save up to 75%",
+    duration: "3–4 Hours",
+    cureTime: "Ready in 24 hrs",
+    popular: true,
+    serviceId: "bathtub-refinishing",
+    features: [
+      "Complete surface preparation",
+      "Professional-grade coating",
+      "5-year warranty",
+      "Same-day service available"
+    ]
+  },
+  {
+    id: "pricing-shower-base",
+    name: "Shower Base Refinishing",
+    badge: "High Demand",
+    price: "Starting at $395",
+    priceSub: "Per Pan",
+    warranty: "4-Year Warranty",
+    description: "Deep cleaning and non-slip durable refinishing for fiberglass, acrylic, and cast iron shower pans.",
+    replacementCost: "$1,800 – $3,200+",
+    savings: "Save up to 80%",
+    duration: "2–3 Hours",
+    cureTime: "Ready in 24 hrs",
+    popular: false,
+    serviceId: "shower-base-refinishing",
+    features: [
+      "Deep cleaning & repair",
+      "Non-slip coating",
+      "4-year warranty",
+      "Quick turnaround"
+    ]
+  },
+  {
+    id: "pricing-sink-repair",
+    name: "Sink Repair & Refinishing",
+    badge: "Affordable Renewal",
+    price: "Starting at $295",
+    priceSub: "Per Basin",
+    warranty: "3-Year Warranty",
+    description: "Chip and crack repair with high-gloss white finish for vanity basins, drop-ins, and pedestals.",
+    replacementCost: "$500 – $950+",
+    savings: "Save up to 70%",
+    duration: "1.5–2 Hours",
+    cureTime: "Ready in 24 hrs",
+    popular: false,
+    serviceId: "sink-refinishing",
+    features: [
+      "Chip & crack repair",
+      "Gloss white color",
+      "3-year warranty",
+      "Affordable pricing"
+    ]
+  },
+  {
+    id: "pricing-chip-repair",
+    name: "Chip Repair Service",
+    badge: "Fast & Precise",
+    price: "Starting at $150",
+    priceSub: "Per Spot Repair",
+    warranty: "1-Year Warranty",
+    description: "Precision small chip and ding repair with seamless color matching and fast turnaround.",
+    replacementCost: "Avoid Demolition",
+    savings: "Save 90%+",
+    duration: "1–2 Hours",
+    cureTime: "Fast Curing",
+    popular: false,
+    serviceId: "bathtub-refinishing",
+    features: [
+      "Small chip repair",
+      "Seamless finish",
+      "1-year warranty",
+      "Fast service"
+    ]
+  },
+  {
+    id: "pricing-fiberglass-tub",
+    name: "Fiberglass Tub Restoration",
+    badge: "Pour-On Application",
+    price: "Starting at $510",
+    priceSub: "Full Restoration",
+    warranty: "5-Year Warranty",
+    description: "Structural repair and heavy-duty pour-on liquid enamel application for long-lasting like-new durability.",
+    replacementCost: "$3,000 – $5,000+",
+    savings: "Save up to 75%",
+    duration: "3–4 Hours",
+    cureTime: "Ready in 24 hrs",
+    popular: false,
+    serviceId: "bathtub-refinishing",
+    features: [
+      "Structural repair",
+      "Pour-on application",
+      "5-year warranty",
+      "Like-new finish"
+    ]
+  },
+  {
+    id: "pricing-tile-refinishing",
+    name: "Tile Refinishing",
+    badge: "Full Surround",
+    price: "Starting at $950",
+    priceSub: "Full Tile Surround",
+    warranty: "4-Year Warranty",
+    description: "Grout line repair, tile resurfacing, and pour-on application for a seamless waterproof bathroom surround.",
+    replacementCost: "$4,500 – $7,500+",
+    savings: "Save up to 80%",
+    duration: "4–6 Hours",
+    cureTime: "Ready in 24 hrs",
+    popular: false,
+    serviceId: "bathtub-refinishing",
+    features: [
+      "Grout repair",
+      "Tile resurfacing",
+      "Pour-on application",
+      "4-year warranty"
+    ]
+  }
+];
+
 
 export const BEFORE_AFTER_GALLERY: BeforeAfterProject[] = [
   {

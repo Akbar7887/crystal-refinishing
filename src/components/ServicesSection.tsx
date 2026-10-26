@@ -118,12 +118,37 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               {/* Card Body */}
               <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-2xl font-extrabold text-[#0c2340] group-hover:text-[#0284c7] transition-colors">
-                    {service.title}
-                  </h3>
+                  <div className="flex items-start justify-between gap-3 flex-wrap">
+                    <h3 className="text-2xl font-extrabold text-[#0c2340] group-hover:text-[#0284c7] transition-colors">
+                      {service.title}
+                    </h3>
+                    {service.startingPrice && (
+                      <div className="text-right shrink-0 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs">
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block leading-tight">Starting at</span>
+                        <span className="text-xl font-black text-[#0284c7] leading-tight">{service.startingPrice}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Savings & Turnaround Badges */}
+                  <div className="mt-2.5 mb-3 flex items-center gap-2 flex-wrap text-xs">
+                    {service.typicalSavings && (
+                      <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
+                        {service.typicalSavings}
+                      </span>
+                    )}
+                    {service.typicalTime && (
+                      <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-medium">
+                        ⏱ {service.typicalTime}
+                      </span>
+                    )}
+                    <a href="#pricing" className="text-[#0284c7] hover:underline font-semibold ml-auto">
+                      View details →
+                    </a>
+                  </div>
 
                   {/* Exact Required Service Description */}
-                  <p className="mt-3 text-slate-600 text-sm leading-relaxed">
+                  <p className="text-slate-600 text-sm leading-relaxed">
                     {service.description}
                   </p>
 

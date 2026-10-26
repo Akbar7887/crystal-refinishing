@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { ServicesSection } from './components/ServicesSection';
+import { PricingSection } from './components/PricingSection';
 import { BeforeAfterGallery } from './components/BeforeAfterGallery';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { HowItWorks } from './components/HowItWorks';
@@ -82,6 +83,12 @@ function WebsiteContent() {
         {/* 2. Services: Core Refinishing Services Cards */}
         <ServicesSection 
           onSelectServiceEstimate={handleSelectServiceEstimate} 
+          onOpenFlyer={() => setIsFlyerOpen(true)}
+        />
+
+        {/* 3. Transparent Pricing & Cost Comparison */}
+        <PricingSection 
+          onOpenEstimate={scrollToContact}
           onOpenFlyer={() => setIsFlyerOpen(true)}
         />
 
