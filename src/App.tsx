@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { TestimonialsSection } from './components/TestimonialsSection';
-import { ServicesSection } from './components/ServicesSection';
 import { PricingSection } from './components/PricingSection';
 import { BeforeAfterGallery } from './components/BeforeAfterGallery';
 import { WhyChooseUs } from './components/WhyChooseUs';
@@ -80,13 +79,7 @@ function WebsiteContent() {
           onOpenFlyer={() => setIsFlyerOpen(true)}
         />
 
-        {/* 2. Services: Core Refinishing Services Cards */}
-        <ServicesSection 
-          onSelectServiceEstimate={handleSelectServiceEstimate} 
-          onOpenFlyer={() => setIsFlyerOpen(true)}
-        />
-
-        {/* 3. Transparent Pricing & Cost Comparison */}
+        {/* 2. Unified Services & Transparent Pricing */}
         <PricingSection 
           onOpenEstimate={scrollToContact}
           onOpenFlyer={() => setIsFlyerOpen(true)}

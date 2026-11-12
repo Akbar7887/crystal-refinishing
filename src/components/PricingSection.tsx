@@ -18,18 +18,19 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenEstimate, 
   const hasSecondary = businessSettings.secondaryPhoneEnabled !== false && secondaryPhone.trim().length > 0;
 
   return (
-    <section id="pricing" className="py-16 sm:py-24 bg-slate-50/70 border-b border-slate-200 scroll-mt-20">
+    <section id="pricing" className="py-16 sm:py-24 bg-slate-50/70 border-b border-slate-200 scroll-mt-20 relative">
+      <span id="services" className="absolute -top-24 left-0 pointer-events-none" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
             <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Upfront & Transparent Pricing · Austin, TX</span>
+            <span>Our Services & Transparent Pricing · Austin, TX</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#0c2340] tracking-tight">
-            Transparent Refinishing Pricing —{' '}
+            Our Refinishing Services & Pricing —{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0284c7] to-[#0077e6]">
               Save Up to 75%
             </span>
