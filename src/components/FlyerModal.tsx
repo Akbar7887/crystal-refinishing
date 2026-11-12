@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, ZoomIn, ZoomOut, Download, Phone, Mail, Sparkles, CheckCircle2, FileText, ExternalLink } from 'lucide-react';
 import { BUSINESS_INFO, BRAND_ASSETS } from '../data/content';
+import { useAdmin } from '../context/AdminContext';
 
 interface FlyerModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface FlyerModalProps {
 }
 
 export const FlyerModal: React.FC<FlyerModalProps> = ({ isOpen, onClose, onOpenEstimate }) => {
+  const { businessSettings } = useAdmin();
   const [isZoomed, setIsZoomed] = useState(false);
 
   if (!isOpen) return null;
@@ -138,44 +140,48 @@ export const FlyerModal: React.FC<FlyerModalProps> = ({ isOpen, onClose, onOpenE
               </span>
 
               <div className="space-y-2 text-xs">
-                <a
-                  href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                  className="p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 flex items-center justify-between text-slate-900 transition-all group shadow-xs"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center">
-                      <Phone className="w-3.5 h-3.5" />
+                {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) && (
+                  <a
+                    href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`}
+                    className="p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 flex items-center justify-between text-slate-900 transition-all group shadow-xs"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center">
+                        <Phone className="w-3.5 h-3.5" />
+                      </div>
+                      <div>
+                        <span className="block font-bold text-[#0c2340]">{businessSettings.primaryContactName || 'Akbar'}</span>
+                        <span className="font-mono text-[#0284c7] font-semibold">{businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</span>
+                      </div>
                     </div>
-                    <div>
-                      <span className="block font-bold text-[#0c2340]">Akbar</span>
-                      <span className="font-mono text-[#0284c7] font-semibold">{BUSINESS_INFO.primaryContact.phone}</span>
+                    <span className="text-[10px] uppercase font-bold text-[#0284c7] group-hover:underline">Call / Text →</span>
+                  </a>
+                )}
+
+                {businessSettings.secondaryPhoneEnabled !== false && (businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone) && (
+                  <a
+                    href={`tel:${(businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone).replace(/\D/g, '')}`}
+                    className="p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 flex items-center justify-between text-slate-900 transition-all group shadow-xs"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center">
+                        <Phone className="w-3.5 h-3.5" />
+                      </div>
+                      <div>
+                        <span className="block font-bold text-[#0c2340]">{businessSettings.secondaryContactName || 'Alex'}</span>
+                        <span className="font-mono text-[#0284c7] font-semibold">{businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone}</span>
+                      </div>
                     </div>
-                  </div>
-                  <span className="text-[10px] uppercase font-bold text-[#0284c7] group-hover:underline">Call / Text →</span>
-                </a>
+                    <span className="text-[10px] uppercase font-bold text-[#0284c7] group-hover:underline">Call / Text →</span>
+                  </a>
+                )}
 
                 <a
-                  href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`}
-                  className="p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 flex items-center justify-between text-slate-900 transition-all group shadow-xs"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center">
-                      <Phone className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <span className="block font-bold text-[#0c2340]">Alex</span>
-                      <span className="font-mono text-[#0284c7] font-semibold">{BUSINESS_INFO.secondaryContact.phone}</span>
-                    </div>
-                  </div>
-                  <span className="text-[10px] uppercase font-bold text-[#0284c7] group-hover:underline">Call / Text →</span>
-                </a>
-
-                <a
-                  href={`mailto:${BUSINESS_INFO.email}`}
+                  href={`mailto:${businessSettings.email || BUSINESS_INFO.email}`}
                   className="p-2.5 rounded-xl bg-white border border-slate-200 hover:border-sky-300 flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-all"
                 >
                   <Mail className="w-3.5 h-3.5 text-[#0284c7]" />
-                  <span className="font-mono text-[11px] truncate">{BUSINESS_INFO.email}</span>
+                  <span className="font-mono text-[11px] truncate">{businessSettings.email || BUSINESS_INFO.email}</span>
                 </a>
               </div>
 

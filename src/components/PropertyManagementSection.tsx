@@ -4,7 +4,7 @@ import { BUSINESS_INFO } from '../data/content';
 import { useAdmin } from '../context/AdminContext';
 
 export const PropertyManagementSection: React.FC = () => {
-  const { addLead } = useAdmin();
+  const { addLead, businessSettings } = useAdmin();
 
   // Form State
   const [name, setName] = useState('');
@@ -189,25 +189,31 @@ export const PropertyManagementSection: React.FC = () => {
               </div>
 
               {/* Direct PM Hotline */}
-              <div className="pt-4 border-t border-slate-200 flex flex-col gap-2 text-xs">
-                <span className="text-slate-500 font-medium">Direct Property Management Line:</span>
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                    className="text-[#0284c7] font-bold hover:underline flex items-center gap-1 font-mono"
-                  >
-                    <Phone className="w-3.5 h-3.5" />
-                    <span>Akbar: {BUSINESS_INFO.primaryContact.phone}</span>
-                  </a>
-                  <a
-                    href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`}
-                    className="text-[#0284c7] font-bold hover:underline flex items-center gap-1 font-mono"
-                  >
-                    <Phone className="w-3.5 h-3.5" />
-                    <span>Alex: {BUSINESS_INFO.secondaryContact.phone}</span>
-                  </a>
+              {(businessSettings.primaryPhoneEnabled !== false || businessSettings.secondaryPhoneEnabled !== false) && (
+                <div className="pt-4 border-t border-slate-200 flex flex-col gap-2 text-xs">
+                  <span className="text-slate-500 font-medium">Direct Property Management Line:</span>
+                  <div className="flex flex-wrap gap-4">
+                    {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) && (
+                      <a
+                        href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`}
+                        className="text-[#0284c7] font-bold hover:underline flex items-center gap-1 font-mono"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>{businessSettings.primaryContactName || 'Akbar'}: {businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</span>
+                      </a>
+                    )}
+                    {businessSettings.secondaryPhoneEnabled !== false && (businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone) && (
+                      <a
+                        href={`tel:${(businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone).replace(/\D/g, '')}`}
+                        className="text-[#0284c7] font-bold hover:underline flex items-center gap-1 font-mono"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>{businessSettings.secondaryContactName || 'Alex'}: {businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone}</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
 
             </div>
 

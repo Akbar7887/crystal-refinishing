@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, MessageSquare, ArrowRight, Sparkles, Check, Building, FileText, ShieldCheck } from 'lucide-react';
 import { BUSINESS_INFO, BRAND_ASSETS } from '../data/content';
+import { useAdmin } from '../context/AdminContext';
 
 interface HeroProps {
   onOpenEstimate: () => void;
@@ -9,6 +10,16 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, onOpenFlyer }) => {
+  const { businessSettings } = useAdmin();
+  const primaryPhone = businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone;
+  const primaryPhoneRaw = primaryPhone.replace(/\D/g, '');
+  const secondaryPhone = businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone;
+  const secondaryPhoneRaw = secondaryPhone.replace(/\D/g, '');
+  const hasPrimary = businessSettings.primaryPhoneEnabled !== false && primaryPhone.trim().length > 0;
+  const hasSecondary = businessSettings.secondaryPhoneEnabled !== false && secondaryPhone.trim().length > 0;
+  const primaryName = businessSettings.primaryContactName || BUSINESS_INFO.primaryContact.name;
+  const secondaryName = businessSettings.secondaryContactName || BUSINESS_INFO.secondaryContact.name;
+
   return (
     <section id="home" className="relative w-full bg-gradient-to-b from-white via-slate-50/50 to-white text-slate-900 overflow-hidden border-b border-slate-200 min-h-[560px] lg:min-h-[640px] flex items-center">
       
@@ -58,33 +69,43 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate, onExploreGallery, on
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              {/* Secondary CTA Button: CALL OR TEXT US (512-905-5823) */}
-              <a
-                href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-full bg-slate-100 hover:bg-slate-200/80 text-[#0c2340] font-bold text-sm sm:text-base border border-slate-200 transition-all active:scale-98 cursor-pointer shadow-2xs"
-              >
-                <Phone className="w-4 h-4 text-[#0284c7]" />
-                <span>CALL OR TEXT US: {BUSINESS_INFO.primaryContact.phone}</span>
-              </a>
+              {/* Secondary CTA Button: CALL OR TEXT US (Dynamic) */}
+              {(hasPrimary || hasSecondary) && (
+                <a
+                  href={`tel:${hasPrimary ? primaryPhoneRaw : secondaryPhoneRaw}`}
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-full bg-slate-100 hover:bg-slate-200/80 text-[#0c2340] font-bold text-sm sm:text-base border border-slate-200 transition-all active:scale-98 cursor-pointer shadow-2xs"
+                >
+                  <Phone className="w-4 h-4 text-[#0284c7]" />
+                  <span>CALL OR TEXT US: {hasPrimary ? primaryPhone : secondaryPhone}</span>
+                </a>
+              )}
 
             </div>
 
             {/* Direct Lines Note for Akbar and Alex */}
-            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 pt-1">
-              <span className="font-medium text-slate-400">Direct lines:</span>
-              <a href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`} className="text-[#0284c7] hover:underline font-mono font-bold">
-                Akbar: {BUSINESS_INFO.primaryContact.phone}
-              </a>
-              <span aria-hidden="true" className="text-slate-300">·</span>
-              <a href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`} className="text-[#0284c7] hover:underline font-mono font-bold">
-                Alex: {BUSINESS_INFO.secondaryContact.phone}
-              </a>
-              <span aria-hidden="true" className="text-slate-300">·</span>
-              <a href={`sms:${BUSINESS_INFO.primaryContact.phoneRaw}`} className="text-slate-600 hover:text-[#0284c7] flex items-center gap-1.5 font-medium">
-                <MessageSquare className="w-3.5 h-3.5 text-[#0284c7]" />
-                <span>Text photos for rapid estimate</span>
-              </a>
-            </div>
+            {(hasPrimary || hasSecondary) && (
+              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 pt-1">
+                <span className="font-medium text-slate-400">Direct lines:</span>
+                {hasPrimary && (
+                  <a href={`tel:${primaryPhoneRaw}`} className="text-[#0284c7] hover:underline font-mono font-bold">
+                    {primaryName}: {primaryPhone}
+                  </a>
+                )}
+                {hasPrimary && hasSecondary && (
+                  <span aria-hidden="true" className="text-slate-300">·</span>
+                )}
+                {hasSecondary && (
+                  <a href={`tel:${secondaryPhoneRaw}`} className="text-[#0284c7] hover:underline font-mono font-bold">
+                    {secondaryName}: {secondaryPhone}
+                  </a>
+                )}
+                <span aria-hidden="true" className="text-slate-300">·</span>
+                <a href={`sms:${hasPrimary ? primaryPhoneRaw : secondaryPhoneRaw}`} className="text-slate-600 hover:text-[#0284c7] flex items-center gap-1.5 font-medium">
+                  <MessageSquare className="w-3.5 h-3.5 text-[#0284c7]" />
+                  <span>Text photos for rapid estimate</span>
+                </a>
+              </div>
+            )}
 
             {/* Core Benefits Strip */}
             <div className="pt-4 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">

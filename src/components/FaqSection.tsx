@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { HelpCircle, ChevronDown, Phone, MessageSquare, Sparkles } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/content';
+import { useAdmin } from '../context/AdminContext';
 
 export const FaqSection: React.FC = () => {
+  const { businessSettings } = useAdmin();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
@@ -83,21 +85,25 @@ export const FaqSection: React.FC = () => {
         </div>
 
         {/* Additional Questions Card */}
-        <div className="mt-10 p-6 rounded-3xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div>
-            <h4 className="font-bold text-[#0c2340] text-sm sm:text-base">Have a question about your specific bathtub or shower?</h4>
-            <p className="text-xs text-slate-500 mt-0.5">Call or text Akbar or Alex directly for fast advice and recommendations.</p>
+        {(businessSettings.primaryPhoneEnabled !== false || businessSettings.secondaryPhoneEnabled !== false) && (
+          <div className="mt-10 p-6 rounded-3xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+              <h4 className="font-bold text-[#0c2340] text-sm sm:text-base">Have a question about your specific bathtub or shower?</h4>
+              <p className="text-xs text-slate-500 mt-0.5">Call or text our team directly for fast advice and recommendations.</p>
+            </div>
+            <div className="flex items-center gap-2">
+              {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) && (
+                <a
+                  href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`}
+                  className="px-4 py-2 rounded-xl bg-[#0c2340] hover:bg-[#0284c7] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Call {businessSettings.primaryContactName || 'Akbar'}: {businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</span>
+                </a>
+              )}
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <a
-              href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-              className="px-4 py-2 rounded-xl bg-[#0c2340] hover:bg-[#0284c7] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
-            >
-              <Phone className="w-3.5 h-3.5" />
-              <span>Call Akbar: 512-905-5823</span>
-            </a>
-          </div>
-        </div>
+        )}
 
       </div>
     </section>

@@ -3,8 +3,10 @@ import {
   BUSINESS_INFO, 
   REFINISHING_SERVICES, 
   BEFORE_AFTER_GALLERY,
+  PRICING_PLANS,
   RefinishingService, 
-  BeforeAfterProject 
+  BeforeAfterProject,
+  PricingPlan
 } from '../data/content';
 
 export interface AdminLead {
@@ -40,8 +42,10 @@ export interface BusinessSettings {
   subheadline: string;
   primaryContactName: string;
   primaryPhone: string;
+  primaryPhoneEnabled?: boolean;
   secondaryContactName: string;
   secondaryPhone: string;
+  secondaryPhoneEnabled?: boolean;
   email: string;
   location: string;
   servingArea: string;
@@ -120,6 +124,12 @@ interface AdminContextType {
   businessSettings: BusinessSettings;
   updateBusinessSettings: (settings: Partial<BusinessSettings>) => void;
   
+  // Pricing Plans (All 6 core services and custom plans)
+  pricingPlans: PricingPlan[];
+  updatePricingPlan: (id: string, partial: Partial<PricingPlan>) => void;
+  addPricingPlan: (plan: Omit<PricingPlan, 'id'>) => void;
+  deletePricingPlan: (id: string) => void;
+
   // Services
   services: any[];
   updateService: (id: string, partial: any) => void;
@@ -173,8 +183,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       subheadline: BUSINESS_INFO.subheadline,
       primaryContactName: BUSINESS_INFO.primaryContact.name,
       primaryPhone: BUSINESS_INFO.primaryContact.phone,
+      primaryPhoneEnabled: true,
       secondaryContactName: BUSINESS_INFO.secondaryContact.name,
       secondaryPhone: BUSINESS_INFO.secondaryContact.phone,
+      secondaryPhoneEnabled: true,
       email: BUSINESS_INFO.email,
       location: BUSINESS_INFO.location,
       servingArea: BUSINESS_INFO.servingArea,
@@ -187,6 +199,21 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
   });
 
+  // Pricing Plans State (All pricing cards on website)
+  const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>(() => {
+    const currentVersion = 'v4_paired_compact_photos';
+    const savedVersion = localStorage.getItem('crystal_pricing_version');
+    if (savedVersion === currentVersion) {
+      const saved = localStorage.getItem('crystal_pricing_plans');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+      }
+    }
+    localStorage.setItem('crystal_pricing_version', currentVersion);
+    localStorage.setItem('crystal_pricing_plans', JSON.stringify(PRICING_PLANS));
+    return PRICING_PLANS;
+  });
+
   // Services State
   const [services, setServices] = useState<any[]>(() => {
     const saved = localStorage.getItem('crystal_services');
@@ -195,7 +222,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
     return REFINISHING_SERVICES.map(s => ({
       ...s,
-      startingPrice: s.category === 'bathtub' ? '$350' : s.category === 'shower' ? '$320' : s.category === 'sink' ? '$180' : '$250',
+      startingPrice: s.category === 'bathtub' ? '$510' : s.category === 'shower' ? '$395' : s.category === 'sink' ? '$295' : '$260',
       typicalTime: '3–5 hours',
       shortDesc: s.description
     }));
@@ -243,10 +270,29 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setGalleryItems(prev => prev.filter(g => g.id !== id));
   };
 
+  // Pricing Plans mutators
+  const updatePricingPlan = (id: string, partial: Partial<PricingPlan>) => {
+    setPricingPlans(prev => prev.map(p => p.id === id ? { ...p, ...partial } : p));
+  };
+  const addPricingPlan = (planData: Omit<PricingPlan, 'id'>) => {
+    const newPlan: PricingPlan = {
+      ...planData,
+      id: `pricing-${Date.now()}`
+    };
+    setPricingPlans(prev => [...prev, newPlan]);
+  };
+  const deletePricingPlan = (id: string) => {
+    setPricingPlans(prev => prev.filter(p => p.id !== id));
+  };
+
   // Sync to localStorage
   useEffect(() => {
     localStorage.setItem('crystal_business_settings', JSON.stringify(businessSettings));
   }, [businessSettings]);
+
+  useEffect(() => {
+    localStorage.setItem('crystal_pricing_plans', JSON.stringify(pricingPlans));
+  }, [pricingPlans]);
 
   useEffect(() => {
     localStorage.setItem('crystal_leads', JSON.stringify(leads));
@@ -310,6 +356,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const resetToDefaults = () => {
     localStorage.removeItem('crystal_business_settings');
+    localStorage.removeItem('crystal_pricing_plans');
+    localStorage.removeItem('crystal_pricing_version');
+    localStorage.removeItem('crystal_services');
+    localStorage.removeItem('crystal_gallery');
     localStorage.removeItem('crystal_leads');
     setBusinessSettings({
       name: BUSINESS_INFO.name,
@@ -318,8 +368,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       subheadline: BUSINESS_INFO.subheadline,
       primaryContactName: BUSINESS_INFO.primaryContact.name,
       primaryPhone: BUSINESS_INFO.primaryContact.phone,
+      primaryPhoneEnabled: true,
       secondaryContactName: BUSINESS_INFO.secondaryContact.name,
       secondaryPhone: BUSINESS_INFO.secondaryContact.phone,
+      secondaryPhoneEnabled: true,
       email: BUSINESS_INFO.email,
       location: BUSINESS_INFO.location,
       servingArea: BUSINESS_INFO.servingArea,
@@ -327,6 +379,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       announcementEnabled: true,
       announcementText: "💧 Free Estimates for Austin Bathtub & Bathroom Surface Refinishing! Call Akbar: 512-905-5823 or Alex: 737-207-1024"
     });
+    setPricingPlans(PRICING_PLANS);
     setLeads(INITIAL_LEADS);
   };
 
@@ -342,6 +395,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setAdminPin,
         businessSettings,
         updateBusinessSettings,
+        pricingPlans,
+        updatePricingPlan,
+        addPricingPlan,
+        deletePricingPlan,
         services,
         updateService,
         addService,

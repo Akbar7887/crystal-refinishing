@@ -80,39 +80,43 @@ export const Footer: React.FC = () => {
               </h4>
               
               <ul className="space-y-2.5 text-xs">
-                <li>
-                  <a
-                    href="tel:5129055823"
-                    className="flex items-center gap-2.5 text-slate-300 hover:text-white transition-colors"
-                  >
-                    <div className="w-6 h-6 rounded-md bg-white/5 flex items-center justify-center shrink-0">
-                      <Phone className="w-3.5 h-3.5 text-cyan-300" />
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block text-[10px]">Primary Contact (Akbar)</span>
-                      <span className="font-mono font-bold text-white">512-905-5823</span>
-                    </div>
-                  </a>
-                </li>
+                {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) && (
+                  <li>
+                    <a
+                      href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`}
+                      className="flex items-center gap-2.5 text-slate-300 hover:text-white transition-colors"
+                    >
+                      <div className="w-6 h-6 rounded-md bg-white/5 flex items-center justify-center shrink-0">
+                        <Phone className="w-3.5 h-3.5 text-cyan-300" />
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block text-[10px]">Primary Contact ({businessSettings.primaryContactName || 'Akbar'})</span>
+                        <span className="font-mono font-bold text-white">{businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</span>
+                      </div>
+                    </a>
+                  </li>
+                )}
+
+                {businessSettings.secondaryPhoneEnabled !== false && (businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone) && (
+                  <li>
+                    <a
+                      href={`tel:${(businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone).replace(/\D/g, '')}`}
+                      className="flex items-center gap-2.5 text-slate-300 hover:text-white transition-colors"
+                    >
+                      <div className="w-6 h-6 rounded-md bg-white/5 flex items-center justify-center shrink-0">
+                        <Phone className="w-3.5 h-3.5 text-cyan-300" />
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block text-[10px]">Secondary Contact ({businessSettings.secondaryContactName || 'Alex'})</span>
+                        <span className="font-mono font-bold text-white">{businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone}</span>
+                      </div>
+                    </a>
+                  </li>
+                )}
 
                 <li>
                   <a
-                    href="tel:7372071024"
-                    className="flex items-center gap-2.5 text-slate-300 hover:text-white transition-colors"
-                  >
-                    <div className="w-6 h-6 rounded-md bg-white/5 flex items-center justify-center shrink-0">
-                      <Phone className="w-3.5 h-3.5 text-cyan-300" />
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block text-[10px]">Secondary Contact (Alex)</span>
-                      <span className="font-mono font-bold text-white">737-207-1024</span>
-                    </div>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="mailto:888starsllc@gmail.com"
+                    href={`mailto:${businessSettings.email || BUSINESS_INFO.email}`}
                     className="flex items-center gap-2.5 text-slate-300 hover:text-white transition-colors"
                   >
                     <div className="w-6 h-6 rounded-md bg-white/5 flex items-center justify-center shrink-0">
@@ -120,7 +124,7 @@ export const Footer: React.FC = () => {
                     </div>
                     <div>
                       <span className="text-slate-400 block text-[10px]">Email Inquiries</span>
-                      <span className="font-medium text-slate-200">888starsllc@gmail.com</span>
+                      <span className="font-medium text-slate-200">{businessSettings.email || BUSINESS_INFO.email}</span>
                     </div>
                   </a>
                 </li>

@@ -241,24 +241,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimate, onOpenPropertyMa
 
             </nav>
 
-            {/* Zone 3: Call or Text Action Pill (Matches User Design) */}
+            {/* Zone 3: Call or Text Action Pill (Dynamic from Admin) */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-              <a
-                href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                className="flex items-center gap-2.5 sm:gap-3 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-[#edf5fd] hover:bg-[#e2eefb] border border-sky-100 shadow-2xs transition-all group cursor-pointer"
-              >
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#0080ff] group-hover:bg-[#0070e0] flex items-center justify-center text-white shrink-0 shadow-xs transition-transform group-hover:scale-105">
-                  <Phone className="w-4 h-4 fill-white text-white" />
-                </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-[11px] sm:text-xs font-medium text-slate-600 leading-tight">
-                    Call or Text
-                  </span>
-                  <span className="text-sm sm:text-base font-extrabold text-[#0080ff] font-sans tracking-tight leading-tight mt-0.5">
-                    {BUSINESS_INFO.primaryContact.phone}
-                  </span>
-                </div>
-              </a>
+              {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) && (
+                <a
+                  href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`}
+                  className="flex items-center gap-2.5 sm:gap-3 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-[#edf5fd] hover:bg-[#e2eefb] border border-sky-100 shadow-2xs transition-all group cursor-pointer"
+                >
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#0080ff] group-hover:bg-[#0070e0] flex items-center justify-center text-white shrink-0 shadow-xs transition-transform group-hover:scale-105">
+                    <Phone className="w-4 h-4 fill-white text-white" />
+                  </div>
+                  <div className="flex flex-col text-left">
+                    <span className="text-[11px] sm:text-xs font-medium text-slate-600 leading-tight">
+                      Call or Text {businessSettings.primaryContactName || ''}
+                    </span>
+                    <span className="text-sm sm:text-base font-extrabold text-[#0080ff] font-sans tracking-tight leading-tight mt-0.5">
+                      {businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}
+                    </span>
+                  </div>
+                </a>
+              )}
 
               {/* Mobile Hamburger Toggle for screens < lg */}
               <div className="flex lg:hidden items-center">
@@ -376,21 +378,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimate, onOpenPropertyMa
                 GET A FREE ESTIMATE
               </button>
 
-              <div className="grid grid-cols-2 gap-2 pt-1 text-xs font-bold text-center">
-                <a
-                  href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                  className="py-2.5 px-3 rounded-lg bg-slate-100 text-[#0c2340] flex items-center justify-center gap-1.5"
-                >
-                  <Phone className="w-3.5 h-3.5 text-[#0284c7]" />
-                  <span>Akbar: 512-905-5823</span>
-                </a>
-                <a
-                  href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`}
-                  className="py-2.5 px-3 rounded-lg bg-slate-100 text-[#0c2340] flex items-center justify-center gap-1.5"
-                >
-                  <Phone className="w-3.5 h-3.5 text-[#0284c7]" />
-                  <span>Alex: 737-207-1024</span>
-                </a>
+              <div className="flex flex-col gap-2 pt-1 text-xs font-bold text-center">
+                {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) && (
+                  <a
+                    href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`}
+                    className="py-2.5 px-3 rounded-lg bg-slate-100 text-[#0c2340] flex items-center justify-center gap-1.5"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-[#0284c7]" />
+                    <span>{businessSettings.primaryContactName || 'Akbar'}: {businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</span>
+                  </a>
+                )}
+                {businessSettings.secondaryPhoneEnabled !== false && (businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone) && (
+                  <a
+                    href={`tel:${(businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone).replace(/\D/g, '')}`}
+                    className="py-2.5 px-3 rounded-lg bg-slate-100 text-[#0c2340] flex items-center justify-center gap-1.5"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-[#0284c7]" />
+                    <span>{businessSettings.secondaryContactName || 'Alex'}: {businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone}</span>
+                  </a>
+                )}
               </div>
             </div>
           </div>

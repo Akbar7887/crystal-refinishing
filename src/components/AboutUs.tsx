@@ -1,8 +1,19 @@
 import React from 'react';
 import { Droplets, Sparkles, Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react';
 import { BUSINESS_INFO, BRAND_ASSETS } from '../data/content';
+import { useAdmin } from '../context/AdminContext';
 
 export const AboutUs: React.FC = () => {
+  const { businessSettings } = useAdmin();
+  const primaryPhone = businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone;
+  const primaryPhoneRaw = primaryPhone.replace(/\D/g, '');
+  const secondaryPhone = businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone;
+  const secondaryPhoneRaw = secondaryPhone.replace(/\D/g, '');
+  const hasPrimary = businessSettings.primaryPhoneEnabled !== false && primaryPhone.trim().length > 0;
+  const hasSecondary = businessSettings.secondaryPhoneEnabled !== false && secondaryPhone.trim().length > 0;
+  const primaryName = businessSettings.primaryContactName || BUSINESS_INFO.primaryContact.name;
+  const secondaryName = businessSettings.secondaryContactName || BUSINESS_INFO.secondaryContact.name;
+
   return (
     <section id="about" className="py-16 sm:py-24 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,35 +47,41 @@ export const AboutUs: React.FC = () => {
               </div>
 
               {/* Founders Contact Cards */}
-              <div className="w-full max-w-sm space-y-2.5 pt-2 text-left">
-                <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between">
-                  <div>
-                    <span className="text-xs text-slate-500 block font-medium">Primary Contact:</span>
-                    <strong className="text-sm font-bold text-[#0c2340]">Akbar</strong>
-                  </div>
-                  <a
-                    href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                    className="px-3.5 py-1.5 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-mono font-bold transition-colors flex items-center gap-1.5"
-                  >
-                    <Phone className="w-3 h-3 text-[#0284c7]" />
-                    <span>{BUSINESS_INFO.primaryContact.phone}</span>
-                  </a>
-                </div>
+              {(hasPrimary || hasSecondary) && (
+                <div className="w-full max-w-sm space-y-2.5 pt-2 text-left">
+                  {hasPrimary && (
+                    <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between">
+                      <div>
+                        <span className="text-xs text-slate-500 block font-medium">Primary Contact:</span>
+                        <strong className="text-sm font-bold text-[#0c2340]">{primaryName}</strong>
+                      </div>
+                      <a
+                        href={`tel:${primaryPhoneRaw}`}
+                        className="px-3.5 py-1.5 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-mono font-bold transition-colors flex items-center gap-1.5"
+                      >
+                        <Phone className="w-3 h-3 text-[#0284c7]" />
+                        <span>{primaryPhone}</span>
+                      </a>
+                    </div>
+                  )}
 
-                <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between">
-                  <div>
-                    <span className="text-xs text-slate-500 block font-medium">Secondary Contact:</span>
-                    <strong className="text-sm font-bold text-[#0c2340]">Alex</strong>
-                  </div>
-                  <a
-                    href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`}
-                    className="px-3.5 py-1.5 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-mono font-bold transition-colors flex items-center gap-1.5"
-                  >
-                    <Phone className="w-3 h-3 text-[#0284c7]" />
-                    <span>{BUSINESS_INFO.secondaryContact.phone}</span>
-                  </a>
+                  {hasSecondary && (
+                    <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between">
+                      <div>
+                        <span className="text-xs text-slate-500 block font-medium">Secondary Contact:</span>
+                        <strong className="text-sm font-bold text-[#0c2340]">{secondaryName}</strong>
+                      </div>
+                      <a
+                        href={`tel:${secondaryPhoneRaw}`}
+                        className="px-3.5 py-1.5 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-mono font-bold transition-colors flex items-center gap-1.5"
+                      >
+                        <Phone className="w-3 h-3 text-[#0284c7]" />
+                        <span>{secondaryPhone}</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
 
             </div>
 

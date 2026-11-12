@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { MapPin, Search, CheckCircle2, AlertTriangle, ShieldCheck, Droplets, Sparkles } from 'lucide-react';
 import { SERVICE_AREAS, BUSINESS_INFO } from '../data/content';
+import { useAdmin } from '../context/AdminContext';
 
 export const ServiceArea: React.FC = () => {
+  const { businessSettings } = useAdmin();
   const [zipInput, setZipInput] = useState('');
   const [searchResult, setSearchResult] = useState<{ matched: boolean; areaName?: string } | null>(null);
 
@@ -103,7 +105,17 @@ export const ServiceArea: React.FC = () => {
                     <div>
                       <strong className="text-amber-900 block font-bold">Custom Dispatch Assessment</strong>
                       <span>
-                        Please call Akbar at <a href={`tel:${BUSINESS_INFO.primaryContact.phoneRaw}`} className="underline font-bold text-[#0284c7]">{BUSINESS_INFO.primaryContact.phone}</a> or Alex at <a href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`} className="underline font-bold text-[#0284c7]">{BUSINESS_INFO.secondaryContact.phone}</a> to check schedule availability for your location.
+                        Please call {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) ? (
+                          <>
+                            {businessSettings.primaryContactName || 'Akbar'} at <a href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`} className="underline font-bold text-[#0284c7]">{businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</a>
+                          </>
+                        ) : null}
+                        {businessSettings.primaryPhoneEnabled !== false && businessSettings.secondaryPhoneEnabled !== false ? ' or ' : ''}
+                        {businessSettings.secondaryPhoneEnabled !== false && (businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone) ? (
+                          <>
+                            {businessSettings.secondaryContactName || 'Alex'} at <a href={`tel:${(businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone).replace(/\D/g, '')}`} className="underline font-bold text-[#0284c7]">{businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone}</a>
+                          </>
+                        ) : null} to check schedule availability for your location.
                       </span>
                     </div>
                   </div>

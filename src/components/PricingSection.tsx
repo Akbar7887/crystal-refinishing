@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, Phone, MessageSquare, ArrowRight, Sparkles, DollarSign, Clock, ShieldCheck, Building2 } from 'lucide-react';
-import { PRICING_PLANS, BUSINESS_INFO } from '../data/content';
+import { BUSINESS_INFO } from '../data/content';
+import { useAdmin } from '../context/AdminContext';
 
 interface PricingSectionProps {
   onOpenEstimate: () => void;
@@ -8,6 +9,14 @@ interface PricingSectionProps {
 }
 
 export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenEstimate, onOpenFlyer }) => {
+  const { pricingPlans, businessSettings } = useAdmin();
+  const primaryPhone = businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone;
+  const primaryPhoneRaw = primaryPhone.replace(/\D/g, '');
+  const secondaryPhone = businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone;
+  const secondaryPhoneRaw = secondaryPhone.replace(/\D/g, '');
+  const hasPrimary = businessSettings.primaryPhoneEnabled !== false && primaryPhone.trim().length > 0;
+  const hasSecondary = businessSettings.secondaryPhoneEnabled !== false && secondaryPhone.trim().length > 0;
+
   return (
     <section id="pricing" className="py-16 sm:py-24 bg-slate-50/70 border-b border-slate-200 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,108 +40,139 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenEstimate, 
           </p>
         </div>
 
-        {/* 6 Exact Service Pricing Cards Grid (From User Spec) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-          {PRICING_PLANS.map((plan) => (
-            <div
-              key={plan.id}
-              className={`bg-white rounded-3xl flex flex-col justify-between transition-all duration-300 relative border ${
-                plan.popular
-                  ? 'border-2 border-[#0284c7] shadow-xl shadow-sky-500/10 lg:-translate-y-1.5 ring-4 ring-sky-50'
-                  : 'border-slate-200 shadow-sm hover:shadow-lg hover:border-slate-300'
-              }`}
-            >
-              {/* Optional Top Badge */}
-              {plan.badge && (
-                <div className="absolute -top-3 left-6 z-10">
-                  <span
-                    className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-black tracking-wider uppercase shadow-xs ${
-                      plan.popular
-                        ? 'bg-gradient-to-r from-[#0284c7] to-[#0077e6] text-white'
-                        : 'bg-[#0c2340] text-cyan-200'
-                    }`}
-                  >
-                    <Sparkles className="w-3 h-3" />
-                    <span>{plan.badge}</span>
-                  </span>
-                </div>
-              )}
+        {/* 6 Exact Service Pricing Cards Grid Arranged in Pairs (2 per row, Compact & Unified with Photos) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          {pricingPlans.map((plan) => {
+            const rawPrice = (plan.price || '').trim();
+            const displayPrice = rawPrice.toLowerCase().startsWith('starting at')
+              ? rawPrice
+              : rawPrice.startsWith('$')
+              ? `Starting at ${rawPrice}`
+              : `Starting at $${rawPrice}`;
 
-              {/* Card Header */}
-              <div className="p-6 sm:p-8 border-b border-slate-100">
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#0c2340] tracking-tight">
-                    {plan.name}
-                  </h3>
-                  {plan.warranty && (
-                    <span className="shrink-0 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-bold">
-                      {plan.warranty}
-                    </span>
-                  )}
-                </div>
+            const planFeatures = plan.features && plan.features.length > 0
+              ? plan.features
+              : [
+                  'Complete surface preparation',
+                  'Professional grade coating',
+                  '5 years warranty',
+                  '7 days service available'
+                ];
 
-                {/* Price Display: Green bold font matching user screenshots */}
-                <div className="mt-4 flex items-baseline">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-[#4d7c0f] tracking-tight">
-                    {plan.price}
-                  </span>
-                </div>
-
-                {plan.description && (
-                  <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-                    {plan.description}
-                  </p>
+            return (
+              <div
+                key={plan.id}
+                className={`bg-white rounded-3xl flex flex-col justify-between transition-all duration-300 relative border group overflow-hidden ${
+                  plan.popular
+                    ? 'border-2 border-[#0284c7] shadow-xl shadow-sky-500/10 lg:-translate-y-1 ring-4 ring-sky-50'
+                    : 'border-slate-200 shadow-sm hover:shadow-lg hover:border-slate-300'
+                }`}
+              >
+                {/* Photo Header: Pairs the visual transformation photography with the pricing card */}
+                {plan.image && (
+                  <div className="relative aspect-[16/7] overflow-hidden bg-slate-100 border-b border-slate-100">
+                    <img
+                      src={plan.image}
+                      alt={plan.name}
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    {plan.badge && (
+                      <div className="absolute top-3 left-4 z-10">
+                        <span
+                          className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-black tracking-wider uppercase shadow-xs ${
+                            plan.popular
+                              ? 'bg-gradient-to-r from-[#0284c7] to-[#0077e6] text-white'
+                              : 'bg-[#0c2340]/90 backdrop-blur-xs text-cyan-200'
+                          }`}
+                        >
+                          <Sparkles className="w-3 h-3" />
+                          <span>{plan.badge}</span>
+                        </span>
+                      </div>
+                    )}
+                    {plan.warranty && (
+                      <span className="absolute top-3 right-4 px-2.5 py-0.5 rounded-full bg-white/95 backdrop-blur-xs border border-emerald-200 text-emerald-800 text-[11px] font-bold shadow-xs">
+                        {plan.warranty}
+                      </span>
+                    )}
+                  </div>
                 )}
-              </div>
 
-              {/* WHAT'S INCLUDED Checklist */}
-              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between bg-slate-50/50 rounded-b-3xl">
-                <div>
-                  <div className="text-xs font-black tracking-wider uppercase text-slate-900 mb-4 flex items-center justify-between">
-                    <span>WHAT&apos;S INCLUDED</span>
-                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                {/* Card Content: Title, Price, Finish Banner, and Raised 2x2 What's Included */}
+                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    {/* Title and Price in a compact header row */}
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                      <h3 className="text-xl sm:text-2xl font-extrabold text-[#0c2340] tracking-tight">
+                        {plan.name}
+                      </h3>
+                      <span className="text-2xl sm:text-[28px] font-black text-[#15803d] tracking-tight whitespace-nowrap">
+                        {displayPrice}
+                      </span>
+                    </div>
+
+                    {/* Surface Finish Chapter/Header replacing old generic description */}
+                    <div className="mt-2.5 py-2 px-3 rounded-xl bg-sky-50/80 border border-sky-100 flex items-center gap-2">
+                      <Sparkles className="w-3.5 h-3.5 text-[#0284c7] shrink-0" />
+                      <span className="text-xs sm:text-[13px] font-bold text-[#0c2340] leading-snug">
+                        {plan.description || 'Smooth, High Gloss, White or Almond Finish'}
+                      </span>
+                    </div>
+
+                    {/* WHAT'S INCLUDED Checklist - Paired into 2 columns (2x2 grid) for maximum compactness */}
+                    <div className="mt-4 pt-3.5 border-t border-slate-100">
+                      <div className="text-[11px] font-black tracking-wider uppercase text-slate-900 mb-2.5 flex items-center justify-between">
+                        <span className="flex items-center gap-1.5 font-black text-slate-900">
+                          <span>WHAT&apos;S INCLUDED</span>
+                        </span>
+                        <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                        {planFeatures.map((item, fIdx) => (
+                          <div key={fIdx} className="flex items-center gap-2 text-xs sm:text-[13px] text-slate-700">
+                            <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 shadow-2xs">
+                              <Check className="w-3 h-3 stroke-[2.5]" />
+                            </div>
+                            <span className="font-semibold text-slate-800 leading-tight">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
-                  <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
-                    {plan.features.map((item, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-3">
-                        <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                        </div>
-                        <span className="font-medium text-slate-800 leading-snug">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Card Action & Fast Quote */}
-                <div className="mt-8 pt-5 border-t border-slate-200">
-                  <button
-                    type="button"
-                    onClick={onOpenEstimate}
-                    className={`w-full py-3.5 px-5 rounded-full font-bold text-xs sm:text-sm tracking-wide transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer shadow-xs ${
-                      plan.popular
-                        ? 'bg-gradient-to-r from-[#0284c7] to-[#0077e6] hover:from-[#0369a1] hover:to-[#0284c7] text-white shadow-sky-500/25 hover:shadow-md'
-                        : 'bg-[#0c2340] hover:bg-slate-800 text-white'
-                    }`}
-                  >
-                    <span>Get Free Estimate</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-
-                  <div className="mt-3 text-center">
-                    <a
-                      href={`sms:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-                      className="text-[11px] text-slate-500 hover:text-[#0284c7] inline-flex items-center gap-1 font-medium transition-colors"
+                  {/* Card Action & Fast Direct Quote in Bottom Bar */}
+                  <div className="mt-5 pt-3.5 border-t border-slate-100">
+                    <button
+                      type="button"
+                      onClick={onOpenEstimate}
+                      className={`w-full py-3 px-5 rounded-full font-bold text-xs sm:text-sm tracking-wide transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer shadow-xs ${
+                        plan.popular
+                          ? 'bg-gradient-to-r from-[#0284c7] to-[#0077e6] hover:from-[#0369a1] hover:to-[#0284c7] text-white shadow-sky-500/25 hover:shadow-md'
+                          : 'bg-[#0c2340] hover:bg-slate-800 text-white'
+                      }`}
                     >
-                      <MessageSquare className="w-3 h-3 text-[#0284c7]" />
-                      <span>Text photo to {BUSINESS_INFO.primaryContact.phone} for 5-min quote</span>
-                    </a>
+                      <span>Get Free Estimate</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+
+                    {hasPrimary && (
+                      <div className="mt-2 text-center">
+                        <a
+                          href={`sms:${primaryPhoneRaw}`}
+                          className="text-[11px] text-slate-500 hover:text-[#0284c7] inline-flex items-center gap-1 font-medium transition-colors"
+                        >
+                          <MessageSquare className="w-3 h-3 text-[#0284c7]" />
+                          <span>Text photo to {primaryPhone} for 5-min quote</span>
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Commercial & Property Management Callout Banner */}
@@ -205,7 +245,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenEstimate, 
                 <tr>
                   <td className="py-3.5 px-4 font-bold text-[#0c2340]">Typical Bathtub Cost</td>
                   <td className="py-3.5 px-4 bg-sky-50/50 font-black text-[#4d7c0f] text-base">
-                    Starting at $510
+                    {pricingPlans.find(p => p.id === 'pricing-bathtub-reglazing')?.price || 'Starting at $480'}
                   </td>
                   <td className="py-3.5 px-4 text-rose-600 font-semibold">
                     $2,500 – $4,500+ (Tub + tile + plumbing + labor)
@@ -214,7 +254,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenEstimate, 
                 <tr>
                   <td className="py-3.5 px-4 font-bold text-[#0c2340]">Shower Base Cost</td>
                   <td className="py-3.5 px-4 bg-sky-50/50 font-black text-[#4d7c0f] text-base">
-                    Starting at $395
+                    {pricingPlans.find(p => p.id === 'pricing-shower-base')?.price || 'Starting at $350'}
                   </td>
                   <td className="py-3.5 px-4 text-rose-600 font-semibold">
                     $1,800 – $3,200+
@@ -272,25 +312,29 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenEstimate, 
               Want an exact quote for your bathtub, shower, sink or tile?
             </h3>
             <p className="text-slate-300 text-xs sm:text-sm max-w-xl">
-              Snap 1 or 2 photos of your surface and text them directly to our founders. We will respond with an exact price and timeline in under 10 minutes.
+              Snap 1 or 2 photos of your surface and text them directly to our team. We will respond with an exact price and timeline in under 10 minutes.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full md:w-auto">
-            <a
-              href={`sms:${BUSINESS_INFO.primaryContact.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-[#0c2340] font-black text-xs sm:text-sm tracking-wide shadow-lg transition-all active:scale-98 cursor-pointer"
-            >
-              <MessageSquare className="w-4 h-4 text-[#0c2340]" />
-              <span>Text Akbar: {BUSINESS_INFO.primaryContact.phone}</span>
-            </a>
-            <a
-              href={`tel:${BUSINESS_INFO.secondaryContact.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 transition-all active:scale-98 cursor-pointer"
-            >
-              <Phone className="w-4 h-4 text-cyan-300" />
-              <span>Call Alex: {BUSINESS_INFO.secondaryContact.phone}</span>
-            </a>
+            {hasPrimary && (
+              <a
+                href={`sms:${primaryPhoneRaw}`}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-[#0c2340] font-black text-xs sm:text-sm tracking-wide shadow-lg transition-all active:scale-98 cursor-pointer"
+              >
+                <MessageSquare className="w-4 h-4 text-[#0c2340]" />
+                <span>Text {businessSettings.primaryContactName || 'Akbar'}: {primaryPhone}</span>
+              </a>
+            )}
+            {hasSecondary && (
+              <a
+                href={`tel:${secondaryPhoneRaw}`}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 transition-all active:scale-98 cursor-pointer"
+              >
+                <Phone className="w-4 h-4 text-cyan-300" />
+                <span>Call {businessSettings.secondaryContactName || 'Alex'}: {secondaryPhone}</span>
+              </a>
+            )}
           </div>
         </div>
 

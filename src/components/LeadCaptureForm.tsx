@@ -26,7 +26,7 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
   initialServiceId,
   initialDetails
 }) => {
-  const { addLead } = useAdmin();
+  const { addLead, businessSettings } = useAdmin();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form Fields as explicitly requested in Section 8
@@ -201,49 +201,53 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
               {/* Direct Contacts: Akbar & Alex */}
               <div className="space-y-3 pt-2">
                 <span className="text-xs font-bold text-[#0c2340] uppercase tracking-wider block">
-                  Direct Phone Contacts
+                  Direct Contacts
                 </span>
 
-                {/* Akbar */}
-                <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
-                  <div>
-                    <span className="text-xs text-slate-500 block font-medium">Primary Contact</span>
-                    <strong className="text-sm font-bold text-[#0c2340]">Akbar</strong>
+                {/* Primary Contact */}
+                {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) && (
+                  <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
+                    <div>
+                      <span className="text-xs text-slate-500 block font-medium">Primary Contact</span>
+                      <strong className="text-sm font-bold text-[#0c2340]">{businessSettings.primaryContactName || 'Akbar'}</strong>
+                    </div>
+                    <a
+                      href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`}
+                      className="px-3.5 py-2 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      <span>{businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</span>
+                    </a>
                   </div>
-                  <a
-                    href="tel:5129055823"
-                    className="px-3.5 py-2 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
-                  >
-                    <Phone className="w-3.5 h-3.5" />
-                    <span>512-905-5823</span>
-                  </a>
-                </div>
+                )}
 
-                {/* Alex */}
-                <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
-                  <div>
-                    <span className="text-xs text-slate-500 block font-medium">Secondary Contact</span>
-                    <strong className="text-sm font-bold text-[#0c2340]">Alex</strong>
+                {/* Secondary Contact */}
+                {businessSettings.secondaryPhoneEnabled !== false && (businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone) && (
+                  <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
+                    <div>
+                      <span className="text-xs text-slate-500 block font-medium">Secondary Contact</span>
+                      <strong className="text-sm font-bold text-[#0c2340]">{businessSettings.secondaryContactName || 'Alex'}</strong>
+                    </div>
+                    <a
+                      href={`tel:${(businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone).replace(/\D/g, '')}`}
+                      className="px-3.5 py-2 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      <span>{businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone}</span>
+                    </a>
                   </div>
-                  <a
-                    href="tel:7372071024"
-                    className="px-3.5 py-2 rounded-full bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200 text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
-                  >
-                    <Phone className="w-3.5 h-3.5" />
-                    <span>737-207-1024</span>
-                  </a>
-                </div>
+                )}
 
                 {/* Email */}
                 <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
                   <div>
                     <span className="text-xs text-slate-500 block font-medium">Official Inquiries</span>
                     <strong className="text-xs sm:text-sm font-bold text-[#0c2340] truncate max-w-[170px] sm:max-w-none block">
-                      888starsllc@gmail.com
+                      {businessSettings.email || BUSINESS_INFO.email}
                     </strong>
                   </div>
                   <a
-                    href="mailto:888starsllc@gmail.com"
+                    href={`mailto:${businessSettings.email || BUSINESS_INFO.email}`}
                     className="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#0284c7] text-xs font-bold flex items-center gap-1.5 transition-colors"
                   >
                     <Mail className="w-3.5 h-3.5" />

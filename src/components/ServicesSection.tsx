@@ -96,7 +96,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 hover:border-sky-300 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
             >
               {/* Service Photography Frame */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-slate-200">
+              <div className="relative aspect-[16/7] overflow-hidden bg-slate-200">
                 <img
                   src={service.image}
                   alt={`${service.title} in Austin bathroom`}
@@ -106,69 +106,64 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 />
                 
                 {/* Category Number Badge */}
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#0c2340]/85 backdrop-blur-md text-white text-xs font-bold tracking-wide border border-white/10">
+                <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-[#0c2340]/85 backdrop-blur-md text-white text-[11px] font-bold tracking-wide border border-white/10">
                   Service 0{idx + 1}
                 </div>
 
-                <div className="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#0c2340] text-xs font-bold shadow-xs">
+                <div className="absolute bottom-3 right-3 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[#0c2340] text-[11px] font-bold shadow-xs">
                   {service.tagline}
                 </div>
               </div>
 
               {/* Card Body */}
-              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between gap-3 flex-wrap">
-                    <h3 className="text-2xl font-extrabold text-[#0c2340] group-hover:text-[#0284c7] transition-colors">
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-[#0c2340] group-hover:text-[#0284c7] transition-colors">
                       {service.title}
                     </h3>
-                    {service.startingPrice && (
-                      <div className="text-right shrink-0 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs">
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block leading-tight">Starting at</span>
-                        <span className="text-xl font-black text-[#0284c7] leading-tight">{service.startingPrice}</span>
-                      </div>
-                    )}
                   </div>
 
                   {/* Savings & Turnaround Badges */}
-                  <div className="mt-2.5 mb-3 flex items-center gap-2 flex-wrap text-xs">
+                  <div className="mt-2 mb-2.5 flex items-center gap-2 flex-wrap text-xs">
                     {service.typicalSavings && (
-                      <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
+                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
                         {service.typicalSavings}
                       </span>
                     )}
                     {service.typicalTime && (
-                      <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-medium">
+                      <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
                         ⏱ {service.typicalTime}
                       </span>
                     )}
-                    <a href="#pricing" className="text-[#0284c7] hover:underline font-semibold ml-auto">
-                      View details →
+                    <a href="#pricing" className="text-[#0284c7] hover:underline font-semibold ml-auto flex items-center gap-1">
+                      <span>View pricing</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </a>
                   </div>
 
                   {/* Exact Required Service Description */}
-                  <p className="text-slate-600 text-sm leading-relaxed">
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                     {service.description}
                   </p>
 
-                  {/* Feature Checklist */}
-                  <div className="mt-5 pt-4 border-t border-slate-200/80 space-y-2">
+                  {/* Feature Checklist - Paired into 2 columns for compactness */}
+                  <div className="mt-4 pt-3.5 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {service.features.map((feature, fIdx) => (
-                      <div key={fIdx} className="flex items-start gap-2.5 text-xs text-slate-700">
-                        <Check className="w-4 h-4 text-[#0284c7] shrink-0 mt-0.5" />
-                        <span>{feature}</span>
+                      <div key={fIdx} className="flex items-start gap-2 text-xs text-slate-700">
+                        <Check className="w-3.5 h-3.5 text-[#0284c7] shrink-0 mt-0.5" />
+                        <span className="leading-snug">{feature}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Specific CTA Button For Each Service */}
-                <div className="mt-7 pt-4 border-t border-slate-200">
+                <div className="mt-5 pt-3.5 border-t border-slate-200">
                   <button
                     type="button"
                     onClick={() => onSelectServiceEstimate(service)}
-                    className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#0284c7] to-[#0077e6] hover:from-[#0369a1] hover:to-[#0284c7] text-white font-bold text-sm tracking-wide shadow-md shadow-sky-500/20 hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2"
+                    className="w-full py-3 px-6 rounded-full bg-gradient-to-r from-[#0284c7] to-[#0077e6] hover:from-[#0369a1] hover:to-[#0284c7] text-white font-bold text-xs sm:text-sm tracking-wide shadow-md shadow-sky-500/20 hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>{service.ctaText}</span>
                     <ArrowRight className="w-4 h-4" />
