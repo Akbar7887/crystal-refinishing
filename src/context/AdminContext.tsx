@@ -156,10 +156,27 @@ interface AdminContextType {
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Navigation mode
-  const [isAdminView, setIsAdminView] = useState<boolean>(() => {
-    return window.location.hash === '#admin' || window.location.pathname === '/admin';
-  });
+  // Navigation mode: active on /admin route (or legacy #admin hash)
+  const checkAdminRoute = () => {
+    const cleanPath = window.location.pathname.replace(/\/+$/, '');
+    return cleanPath === '/admin' || window.location.hash === '#admin';
+  };
+
+  const [isAdminView, setIsAdminViewState] = useState<boolean>(checkAdminRoute);
+
+  const setIsAdminView = (value: boolean) => {
+    setIsAdminViewState(value);
+    const cleanPath = window.location.pathname.replace(/\/+$/, '');
+    if (value) {
+      if (cleanPath !== '/admin') {
+        window.history.pushState(null, '', '/admin');
+      }
+    } else {
+      if (cleanPath === '/admin' || window.location.hash === '#admin') {
+        window.history.pushState(null, '', '/');
+      }
+    }
+  };
 
   // Auth State
   const [adminPin, setAdminPinState] = useState<string>(() => {
@@ -299,13 +316,15 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [leads]);
 
   useEffect(() => {
-    const handleHash = () => {
-      if (window.location.hash === '#admin') {
-        setIsAdminView(true);
-      }
+    const syncRoute = () => {
+      setIsAdminViewState(checkAdminRoute());
     };
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    window.addEventListener('popstate', syncRoute);
+    window.addEventListener('hashchange', syncRoute);
+    return () => {
+      window.removeEventListener('popstate', syncRoute);
+      window.removeEventListener('hashchange', syncRoute);
+    };
   }, []);
 
   const login = (pin: string) => {

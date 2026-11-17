@@ -16,10 +16,9 @@ import { FlyerModal } from './components/FlyerModal';
 import { AdminPortal } from './components/admin/AdminPortal';
 import { AdminProvider, useAdmin } from './context/AdminContext';
 import { RefinishingService } from './data/content';
-import { Lock } from 'lucide-react';
 
 function WebsiteContent() {
-  const { isAdminView, setIsAdminView } = useAdmin();
+  const { isAdminView } = useAdmin();
   const [selectedServiceId, setSelectedServiceId] = useState<string>('bathtub-refinishing');
   const [estimateDetails, setEstimateDetails] = useState<string>('');
   const [isFlyerOpen, setIsFlyerOpen] = useState<boolean>(false);
@@ -131,18 +130,6 @@ function WebsiteContent() {
 
       {/* 12. Mobile Sticky Quick Action Bar: Call Akbar (512) 905-5823 & Free Estimate */}
       <MobileQuickBar onOpenEstimate={scrollToContact} />
-
-      {/* Floating Discreet Admin Portal Launcher */}
-      <aside aria-label="Admin Access" className="fixed bottom-20 sm:bottom-6 right-6 z-40">
-        <button
-          onClick={() => setIsAdminView(true)}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-[#0c2340]/90 hover:bg-[#0c2340] text-cyan-200 hover:text-white text-xs font-bold shadow-xl border border-cyan-500/30 backdrop-blur-md transition-all hover:scale-105 active:scale-95 group cursor-pointer"
-          title="Owner Portal (Akbar & Alex)"
-        >
-          <Lock className="w-3.5 h-3.5 text-cyan-400 group-hover:rotate-12 transition-transform" />
-          <span className="hidden sm:inline">Admin Portal</span>
-        </button>
-      </aside>
 
     </div>
   );

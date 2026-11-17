@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Menu, X, Shield, Sparkles, Droplets, FileText, ChevronDown } from 'lucide-react';
+import { Phone, Menu, X, Sparkles, Droplets, FileText, ChevronDown } from 'lucide-react';
 import { BUSINESS_INFO, BRAND_ASSETS } from '../data/content';
 import { useAdmin } from '../context/AdminContext';
 
@@ -10,7 +10,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimate, onOpenPropertyManagement, onOpenFlyer }) => {
-  const { businessSettings, setIsAdminView } = useAdmin();
+  const { businessSettings } = useAdmin();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
@@ -224,17 +224,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimate, onOpenPropertyMa
                     >
                       Service Areas (Austin Metro)
                     </a>
-                    <button
-                      onClick={() => {
-                        setMoreMenuOpen(false);
-                        window.location.hash = 'admin';
-                        setIsAdminView(true);
-                      }}
-                      className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-100 flex items-center gap-2 border-t border-slate-100 mt-1 cursor-pointer"
-                    >
-                      <Shield className="w-3.5 h-3.5 text-slate-400" />
-                      <span>Admin Portal</span>
-                    </button>
                   </div>
                 )}
               </div>
@@ -353,17 +342,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimate, onOpenPropertyMa
               >
                 Contact & Free Estimate
               </a>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  window.location.hash = 'admin';
-                  setIsAdminView(true);
-                }}
-                className="px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-50 text-left flex items-center gap-2 font-medium"
-              >
-                <Shield className="w-4 h-4 text-slate-400" />
-                <span>Admin Lead Portal</span>
-              </button>
             </nav>
 
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">

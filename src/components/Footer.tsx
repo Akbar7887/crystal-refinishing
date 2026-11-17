@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Sparkles, ShieldCheck, Clock, Lock, Droplets, X } from 'lucide-react';
+import { Phone, Mail, MapPin, Sparkles, Clock, X } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext';
 import { BUSINESS_INFO, REFINISHING_SERVICES, BRAND_ASSETS } from '../data/content';
 
 export const Footer: React.FC = () => {
-  const { businessSettings, setIsAdminView } = useAdmin();
+  const { businessSettings } = useAdmin();
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
 
   return (
@@ -171,18 +171,6 @@ export const Footer: React.FC = () => {
                 className="hover:text-cyan-300 transition-colors underline cursor-pointer"
               >
                 Privacy Policy
-              </button>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <button
-                type="button"
-                onClick={() => setIsAdminView(true)}
-                className="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-300 text-xs transition-colors py-1 px-2.5 rounded-lg hover:bg-white/5"
-                title="Owner & Manager Portal"
-              >
-                <Lock className="w-3 h-3 text-cyan-400" />
-                <span>Admin Portal</span>
               </button>
             </div>
           </div>

@@ -176,11 +176,8 @@ export const AdminPortal: React.FC = () => {
       <div className="min-h-screen bg-[#0c2340] text-white flex flex-col justify-center items-center p-4">
         {/* Back to website button */}
         <button
-          onClick={() => {
-            window.location.hash = '';
-            setIsAdminView(false);
-          }}
-          className="absolute top-6 left-6 flex items-center gap-2 text-slate-300 hover:text-white transition-colors text-sm font-semibold"
+          onClick={() => setIsAdminView(false)}
+          className="absolute top-6 left-6 flex items-center gap-2 text-slate-300 hover:text-white transition-colors text-sm font-semibold cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Public Website</span>
@@ -284,11 +281,8 @@ export const AdminPortal: React.FC = () => {
           <div className="flex items-center gap-3">
             {/* View Live Website Button */}
             <button
-              onClick={() => {
-                window.location.hash = '';
-                setIsAdminView(false);
-              }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-colors shadow-xs"
+              onClick={() => setIsAdminView(false)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-colors shadow-xs cursor-pointer"
             >
               <Eye className="w-3.5 h-3.5 text-blue-400" />
               <span>View Public Website</span>
