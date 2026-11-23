@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { BUSINESS_INFO, REFINISHING_SERVICES, BRAND_ASSETS } from '../data/content';
 import { useAdmin } from '../context/AdminContext';
+import { trackGoogleAdsConversion } from '../utils/analytics';
 
 interface LeadCaptureFormProps {
   initialServiceId?: string;
@@ -52,6 +53,17 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const isSubmittingRef = useRef(false);
+  const hasTrackedSubmissionRef = useRef(false);
+  const submitTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (submitTimerRef.current !== null) {
+        window.clearTimeout(submitTimerRef.current);
+      }
+    };
+  }, []);
 
   // Sync external pre-fills (from Services or Before/After CTA)
   useEffect(() => {
@@ -125,30 +137,52 @@ export const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmittingRef.current || hasTrackedSubmissionRef.current || isSubmitting || submitted) {
+      return;
+    }
     if (!validate()) return;
 
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
 
-    // Save lead into Admin storage
-    addLead({
-      type: 'residential',
-      name: fullName,
-      phone,
-      email,
-      serviceId: serviceNeeded.toLowerCase().replace(/\s+/g, '-'),
-      serviceName: serviceNeeded,
-      details: message + (selectedPhoto ? ` [Attached photo: ${selectedPhoto.name}]` : ''),
-      status: 'New',
-      notes: `Submitted via Contact / Free Estimate form. Phone: ${phone}. Email: ${email}.`
-    });
+    submitTimerRef.current = window.setTimeout(() => {
+      try {
+        // Save lead into Admin storage
+        addLead({
+          type: 'residential',
+          name: fullName,
+          phone,
+          email,
+          serviceId: serviceNeeded.toLowerCase().replace(/\s+/g, '-'),
+          serviceName: serviceNeeded,
+          details: message + (selectedPhoto ? ` [Attached photo: ${selectedPhoto.name}]` : ''),
+          status: 'New',
+          notes: `Submitted via Contact / Free Estimate form. Phone: ${phone}. Email: ${email}.`
+        });
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
+        setIsSubmitting(false);
+        setSubmitted(true);
+        isSubmittingRef.current = false;
+
+        // Fire conversion ONLY once after submission succeeds
+        if (!hasTrackedSubmissionRef.current) {
+          hasTrackedSubmissionRef.current = true;
+          trackGoogleAdsConversion();
+        }
+      } catch {
+        isSubmittingRef.current = false;
+        setIsSubmitting(false);
+      }
     }, 450);
   };
 
   const handleReset = () => {
+    if (submitTimerRef.current !== null) {
+      window.clearTimeout(submitTimerRef.current);
+      submitTimerRef.current = null;
+    }
+    isSubmittingRef.current = false;
+    hasTrackedSubmissionRef.current = false;
     setSubmitted(false);
     setFullName('');
     setPhone('');

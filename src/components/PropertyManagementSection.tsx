@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Building2, CheckCircle2, Phone, Mail, Send, AlertCircle, Clock, ShieldCheck, Calendar, Sparkles } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/content';
 import { useAdmin } from '../context/AdminContext';
+import { trackGoogleAdsConversion } from '../utils/analytics';
 
 export const PropertyManagementSection: React.FC = () => {
   const { addLead, businessSettings } = useAdmin();
@@ -20,6 +21,17 @@ export const PropertyManagementSection: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const isSubmittingRef = useRef(false);
+  const hasTrackedSubmissionRef = useRef(false);
+  const submitTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (submitTimerRef.current !== null) {
+        window.clearTimeout(submitTimerRef.current);
+      }
+    };
+  }, []);
 
   const handlePhoneChange = (val: string) => {
     const digits = val.replace(/\D/g, '');
@@ -53,33 +65,55 @@ export const PropertyManagementSection: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmittingRef.current || hasTrackedSubmissionRef.current || isSubmitting || submitted) {
+      return;
+    }
     if (!validate()) return;
 
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
 
-    addLead({
-      type: 'property-management',
-      name,
-      companyName,
-      phone,
-      email,
-      propertyAddress,
-      serviceId: serviceType.toLowerCase().replace(/\s+/g, '-'),
-      serviceName: serviceType,
-      numberOfUnits,
-      preferredDate: preferredDate || 'Flexible',
-      details: additionalDetails || `Property inquiry for ${numberOfUnits} of ${serviceType} at ${propertyAddress}.`,
-      status: 'New',
-      notes: `Company: ${companyName}. Preferred Date: ${preferredDate || 'N/A'}. Units: ${numberOfUnits}.`
-    });
+    submitTimerRef.current = window.setTimeout(() => {
+      try {
+        addLead({
+          type: 'property-management',
+          name,
+          companyName,
+          phone,
+          email,
+          propertyAddress,
+          serviceId: serviceType.toLowerCase().replace(/\s+/g, '-'),
+          serviceName: serviceType,
+          numberOfUnits,
+          preferredDate: preferredDate || 'Flexible',
+          details: additionalDetails || `Property inquiry for ${numberOfUnits} of ${serviceType} at ${propertyAddress}.`,
+          status: 'New',
+          notes: `Company: ${companyName}. Preferred Date: ${preferredDate || 'N/A'}. Units: ${numberOfUnits}.`
+        });
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
+        setIsSubmitting(false);
+        setSubmitted(true);
+        isSubmittingRef.current = false;
+
+        // Fire conversion ONLY once after submission succeeds
+        if (!hasTrackedSubmissionRef.current) {
+          hasTrackedSubmissionRef.current = true;
+          trackGoogleAdsConversion();
+        }
+      } catch {
+        isSubmittingRef.current = false;
+        setIsSubmitting(false);
+      }
     }, 600);
   };
 
   const handleReset = () => {
+    if (submitTimerRef.current !== null) {
+      window.clearTimeout(submitTimerRef.current);
+      submitTimerRef.current = null;
+    }
+    isSubmittingRef.current = false;
+    hasTrackedSubmissionRef.current = false;
     setSubmitted(false);
     setName('');
     setCompanyName('');
