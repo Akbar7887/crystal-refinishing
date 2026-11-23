@@ -172,19 +172,21 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         window.history.pushState(null, '', '/admin');
       }
     } else {
+      setIsAuthenticated(false);
       if (cleanPath === '/admin' || window.location.hash === '#admin') {
         window.history.pushState(null, '', '/');
       }
     }
   };
 
-  // Auth State
+  // Auth State: always requires password when entering /admin (never persisted across visits)
   const [adminPin, setAdminPinState] = useState<string>(() => {
-    return localStorage.getItem('crystal_admin_pin') || '5823'; // Default PIN
+    return localStorage.getItem('crystal_admin_pin') || '5823';
   });
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem('crystal_admin_auth') === 'true';
+    localStorage.removeItem('crystal_admin_auth');
+    return false;
   });
 
   // Business settings
@@ -327,10 +329,15 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
   }, []);
 
-  const login = (pin: string) => {
-    if (pin.trim() === adminPin.trim() || pin === 'admin123' || pin === '5823' || pin === '1024') {
+  const login = (password: string) => {
+    const entered = password.trim();
+    const hasCustomPassword = Boolean(localStorage.getItem('crystal_admin_pin'));
+    const isValid = hasCustomPassword
+      ? entered === adminPin.trim()
+      : entered === adminPin.trim() || entered === 'admin123';
+
+    if (entered.length > 0 && isValid) {
       setIsAuthenticated(true);
-      localStorage.setItem('crystal_admin_auth', 'true');
       return true;
     }
     return false;

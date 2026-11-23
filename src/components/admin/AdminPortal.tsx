@@ -16,6 +16,7 @@ import {
   Clock, 
   DollarSign, 
   Eye, 
+  EyeOff,
   Save, 
   Edit3, 
   AlertCircle,
@@ -62,8 +63,9 @@ export const AdminPortal: React.FC = () => {
     resetToDefaults
   } = useAdmin();
 
-  // Login PIN state
+  // Login Password state
   const [pinInput, setPinInput] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
 
   // Active tab in admin
@@ -127,6 +129,7 @@ export const AdminPortal: React.FC = () => {
 
   // Settings PIN change state
   const [newPinValue, setNewPinValue] = useState('');
+  const [pinChangeError, setPinChangeError] = useState('');
   const [pinChangeSuccess, setPinChangeSuccess] = useState(false);
 
   // Announcement bar state inside settings
@@ -137,11 +140,16 @@ export const AdminPortal: React.FC = () => {
   // Handle Login
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!pinInput.trim()) {
+      setLoginError('Please enter your password.');
+      return;
+    }
     if (login(pinInput)) {
       setPinInput('');
+      setShowPassword(false);
       setLoginError('');
     } else {
-      setLoginError('Invalid Passcode. Default is 5823 or admin123.');
+      setLoginError('Incorrect password. Please try again.');
     }
   };
 
@@ -192,48 +200,59 @@ export const AdminPortal: React.FC = () => {
             />
           </div>
 
-          <h1 className="text-2xl font-black text-center text-white">
-            Admin Management
-          </h1>
-          <p className="text-xs text-center text-cyan-300 mt-1 mb-6">
-            Crystal Refinishing (Austin, Texas) Portal
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <Lock className="w-5 h-5 text-cyan-400" />
+            <h1 className="text-2xl font-black text-center text-white">
+              Admin Login
+            </h1>
+          </div>
+          <p className="text-sm text-center text-cyan-300 mb-6">
+            Crystal Refinishing Management Portal
           </p>
 
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                Enter Admin Passcode / PIN
+                Admin Password
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={pinInput}
-                  onChange={(e) => setPinInput(e.target.value)}
-                  placeholder="Enter PIN (e.g. 5823)"
-                  className="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0062ff] text-center text-xl tracking-widest font-mono"
+                  onChange={(e) => {
+                    setPinInput(e.target.value);
+                    if (loginError) setLoginError('');
+                  }}
+                  placeholder="Enter password"
+                  autoComplete="current-password"
+                  className="w-full pl-11 pr-11 py-3.5 rounded-xl bg-slate-950/70 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0062ff] text-base tracking-wide"
                   autoFocus
                 />
-                <KeyRound className="w-5 h-5 text-slate-500 absolute left-4 top-4" />
+                <KeyRound className="w-5 h-5 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(prev => !prev)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
               </div>
             </div>
 
             {loginError && (
-              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs font-medium text-center">
-                {loginError}
+              <div className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl text-red-300 text-sm font-medium text-center flex items-center justify-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{loginError}</span>
               </div>
             )}
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-[#0062ff] hover:bg-[#0052cc] text-white font-bold text-sm shadow-md transition-all active:scale-98"
+              className="w-full py-3.5 rounded-xl bg-[#0062ff] hover:bg-[#0052cc] text-white font-bold text-base shadow-md transition-all active:scale-98 cursor-pointer"
             >
-              Sign In to Admin
+              Sign In
             </button>
-
-            <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-700/50 text-[11px] text-slate-400 text-center space-y-1">
-              <span className="font-semibold text-slate-300">Default Access:</span>
-              <p>PIN is <code className="bg-slate-800 px-1.5 py-0.5 rounded text-blue-400 font-bold">5823</code> (last 4 digits of phone) or <code className="bg-slate-800 px-1.5 py-0.5 rounded text-blue-400 font-bold">admin123</code></p>
-            </div>
           </form>
         </div>
       </div>
@@ -1278,44 +1297,55 @@ export const AdminPortal: React.FC = () => {
               </div>
             </div>
 
-            {/* Change Admin PIN */}
+            {/* Change Admin Password */}
             <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
               <div className="flex items-center gap-2 text-slate-900 font-bold text-base">
                 <KeyRound className="w-5 h-5 text-[#0062ff]" />
-                <span>Admin Passcode / Security PIN</span>
+                <span>Admin Password / Security PIN</span>
               </div>
               <p className="text-xs text-slate-500">
-                Current PIN is <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono font-bold text-slate-800">{adminPin}</code>. You can change it below anytime:
+                Current password/PIN is <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono font-bold text-slate-800">{adminPin}</code>. Change it anytime below:
               </p>
 
               <div className="flex items-center gap-3">
                 <input
                   type="password"
                   value={newPinValue}
-                  onChange={(e) => setNewPinValue(e.target.value)}
-                  placeholder="New PIN (4+ digits)"
+                  onChange={(e) => {
+                    setNewPinValue(e.target.value);
+                    if (pinChangeError) setPinChangeError('');
+                  }}
+                  placeholder="New password (4+ characters)"
                   className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-900 font-mono"
                 />
                 <button
+                  type="button"
                   onClick={() => {
                     if (newPinValue.trim().length >= 4) {
                       setAdminPin(newPinValue.trim());
                       setNewPinValue('');
+                      setPinChangeError('');
                       setPinChangeSuccess(true);
                       setTimeout(() => setPinChangeSuccess(false), 2500);
                     } else {
-                      alert('Please enter at least 4 digits/characters for your PIN.');
+                      setPinChangeError('Please enter at least 4 characters for your password.');
                     }
                   }}
-                  className="px-4 py-2 rounded-xl bg-[#0062ff] text-white text-xs font-bold hover:bg-[#0052cc] transition-colors"
+                  className="px-4 py-2 rounded-xl bg-[#0062ff] text-white text-xs font-bold hover:bg-[#0052cc] transition-colors cursor-pointer"
                 >
-                  Update PIN
+                  Update Password
                 </button>
               </div>
 
+              {pinChangeError && (
+                <div className="text-xs text-red-600 font-semibold flex items-center gap-1">
+                  <AlertCircle className="w-4 h-4" /> {pinChangeError}
+                </div>
+              )}
+
               {pinChangeSuccess && (
                 <div className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
-                  <CheckCircle2 className="w-4 h-4" /> PIN successfully updated!
+                  <CheckCircle2 className="w-4 h-4" /> Password successfully updated!
                 </div>
               )}
             </div>
