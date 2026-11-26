@@ -17,7 +17,9 @@ export function trackGoogleAdsConversion(): boolean {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
     lastConversionTimestamp = now;
     window.gtag('event', 'conversion', {
-      send_to: 'AW-18587761111/SgojCNu_yrwdENfzqp9F',
+      send_to: 'AW-18587761111/SGojCNu_yrwdENfzqp9F',
+      value: 1.0,
+      currency: 'USD',
     });
     return true;
   }
