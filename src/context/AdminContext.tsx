@@ -137,9 +137,9 @@ interface AdminContextType {
   deleteService: (id: string) => void;
   
   // Gallery
-  galleryItems: any[];
-  addGalleryItem: (item: any) => void;
-  updateGalleryItem: (id: string, partial: any) => void;
+  galleryItems: AdminGalleryItem[];
+  addGalleryItem: (item: Omit<AdminGalleryItem, 'id'> | AdminGalleryItem) => void;
+  updateGalleryItem: (id: string, partial: Partial<AdminGalleryItem>) => void;
   deleteGalleryItem: (id: string) => void;
   
   // Leads
@@ -248,10 +248,15 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   });
 
   // Gallery State
-  const [galleryItems, setGalleryItems] = useState<any[]>(() => {
+  const [galleryItems, setGalleryItems] = useState<AdminGalleryItem[]>(() => {
     const saved = localStorage.getItem('crystal_gallery');
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      } catch (e) { /* ignore */ }
     }
     return BEFORE_AFTER_GALLERY;
   });
@@ -277,16 +282,33 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setServices(prev => prev.filter(s => s.id !== id));
   };
 
-  // Gallery mutators
-  const addGalleryItem = (item: any) => {
-    const newItem = { ...item, id: `gallery-${Date.now()}` };
-    setGalleryItems(prev => [newItem, ...prev]);
+  // Gallery mutators (persist synchronously to surface storage quota errors immediately)
+  const persistGallery = (nextItems: AdminGalleryItem[]) => {
+    localStorage.setItem('crystal_gallery', JSON.stringify(nextItems));
   };
-  const updateGalleryItem = (id: string, partial: any) => {
-    setGalleryItems(prev => prev.map(g => g.id === id ? { ...g, ...partial } : g));
+
+  const addGalleryItem = (item: Omit<AdminGalleryItem, 'id'> | AdminGalleryItem) => {
+    const newItem: AdminGalleryItem = {
+      ...item,
+      id: 'id' in item && item.id ? item.id : `gallery-${Date.now()}`,
+    };
+    const next = [newItem, ...galleryItems];
+    persistGallery(next);
+    setGalleryItems(next);
   };
+
+  const updateGalleryItem = (id: string, partial: Partial<AdminGalleryItem>) => {
+    const next = galleryItems.map(g => g.id === id ? { ...g, ...partial } : g);
+    persistGallery(next);
+    setGalleryItems(next);
+  };
+
   const deleteGalleryItem = (id: string) => {
-    setGalleryItems(prev => prev.filter(g => g.id !== id));
+    const next = galleryItems.filter(g => g.id !== id);
+    try {
+      persistGallery(next);
+    } catch { /* ignore */ }
+    setGalleryItems(next);
   };
 
   // Pricing Plans mutators
@@ -406,6 +428,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       announcementText: "💧 Free Estimates for Austin Bathtub & Bathroom Surface Refinishing! Call Akbar: 512-905-5823 or Alex: 737-207-1024"
     });
     setPricingPlans(PRICING_PLANS);
+    setGalleryItems(BEFORE_AFTER_GALLERY);
     setLeads(INITIAL_LEADS);
   };
 

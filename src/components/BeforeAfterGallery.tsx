@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Sparkles, Maximize2, X, ArrowLeftRight, CheckCircle2, ChevronRight, MapPin, FileText } from 'lucide-react';
-import { BEFORE_AFTER_GALLERY, BeforeAfterProject, BRAND_ASSETS } from '../data/content';
+import { BeforeAfterProject, BRAND_ASSETS } from '../data/content';
+import { useAdmin } from '../context/AdminContext';
 
 interface BeforeAfterGalleryProps {
   onRequestEstimateForProject: (projectTitle: string) => void;
@@ -11,6 +12,7 @@ export const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
   onRequestEstimateForProject,
   onOpenFlyer 
 }) => {
+  const { galleryItems } = useAdmin();
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedProject, setSelectedProject] = useState<BeforeAfterProject | null>(null);
   const [sliderPositions, setSliderPositions] = useState<Record<string, number>>({
@@ -20,18 +22,20 @@ export const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
     'ba-counter-1': 50
   });
 
+  const hasJacuzzi = galleryItems.some(p => p.category === 'jacuzzi');
   const categories = [
-    { id: 'all', label: 'All Transformations (12)' },
+    { id: 'all', label: `All Transformations (${galleryItems.length})` },
     { id: 'bathtub', label: 'Bathtubs' },
     { id: 'color-change', label: 'Color Modernization' },
     { id: 'shower', label: 'Shower Bases' },
     { id: 'sink', label: 'Sinks' },
-    { id: 'countertop', label: 'Countertops' }
+    { id: 'countertop', label: 'Countertops' },
+    ...(hasJacuzzi ? [{ id: 'jacuzzi', label: 'Jacuzzi / Whirlpool' }] : [])
   ];
 
   const filteredProjects = activeCategory === 'all'
-    ? BEFORE_AFTER_GALLERY
-    : BEFORE_AFTER_GALLERY.filter(p => p.category === activeCategory);
+    ? galleryItems
+    : galleryItems.filter(p => p.category === activeCategory);
 
   const handleSliderMove = (projectId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
@@ -169,14 +173,13 @@ export const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
 
                     {/* BEFORE Image (Clipped layer based on slider position) */}
                     <div
-                      className="absolute inset-y-0 left-0 overflow-hidden"
-                      style={{ width: `${sliderPos}%` }}
+                      className="absolute inset-0 overflow-hidden"
+                      style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
                     >
                       <img
                         src={project.beforeImage}
                         alt={`${project.title} - Before Refinishing`}
-                        className="absolute inset-0 w-full h-full object-cover max-w-none"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        className="absolute inset-0 w-full h-full object-cover"
                         loading="lazy"
                       />
                     </div>
