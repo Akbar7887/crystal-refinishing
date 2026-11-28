@@ -35,19 +35,19 @@ export const FaqSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200">
+    <section className="py-16 sm:py-24 bg-[#F5EFE6] border-b border-[#E6DDD0]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100/70 border border-cyan-300 text-[#0284c7] text-xs font-bold uppercase tracking-wider mb-3">
-            <HelpCircle className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F6EFE2] border border-[#E2CFAF] text-[#8A652E] text-xs font-bold uppercase tracking-wider mb-3">
+            <HelpCircle className="w-3.5 h-3.5 text-[#9A723A]" />
             <span>Common Questions</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0c2340] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2B1D16] tracking-tight">
             Frequently Asked Questions
           </h2>
-          <p className="mt-2 text-slate-600 text-sm sm:text-base">
+          <p className="mt-2 text-[#5A4639] text-sm sm:text-base">
             Answers to common questions about our Austin bathroom refinishing process, curing times, and care.
           </p>
         </div>
@@ -59,23 +59,23 @@ export const FaqSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all shadow-xs"
+                className="bg-[#FFFDF9] rounded-2xl border border-[#EAE1D3] overflow-hidden transition-all shadow-xs"
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full py-4 sm:py-5 px-5 sm:px-6 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:text-[#0284c7] transition-colors"
+                  className="w-full py-4 sm:py-5 px-5 sm:px-6 text-left flex items-center justify-between gap-4 font-bold text-[#2B1D16] text-sm sm:text-base hover:text-[#8A652E] transition-colors"
                 >
                   <span className="leading-snug">{faq.q}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#0284c7] shrink-0 transition-transform duration-200 ${
+                    className={`w-5 h-5 text-[#9A723A] shrink-0 transition-transform duration-200 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                  <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-[#5A4639] leading-relaxed border-t border-[#EAE1D3]">
                     {faq.a}
                   </div>
                 )}
@@ -86,18 +86,18 @@ export const FaqSection: React.FC = () => {
 
         {/* Additional Questions Card */}
         {(businessSettings.primaryPhoneEnabled !== false || businessSettings.secondaryPhoneEnabled !== false) && (
-          <div className="mt-10 p-6 rounded-3xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="mt-10 p-6 rounded-3xl bg-[#FFFDF9] border border-[#EAE1D3] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div>
-              <h4 className="font-bold text-[#0c2340] text-sm sm:text-base">Have a question about your specific bathtub or shower?</h4>
-              <p className="text-xs text-slate-500 mt-0.5">Call or text our team directly for fast advice and recommendations.</p>
+              <h4 className="font-bold text-[#2B1D16] text-sm sm:text-base">Have a question about your specific bathtub or shower?</h4>
+              <p className="text-xs text-[#6B574A] mt-0.5">Call or text our team directly for fast advice and recommendations.</p>
             </div>
             <div className="flex items-center gap-2">
               {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) && (
                 <a
                   href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`}
-                  className="px-4 py-2 rounded-xl bg-[#0c2340] hover:bg-[#0284c7] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
+                  className="px-4 py-2 rounded-xl bg-[#5C3D2E] hover:bg-[#462D21] text-[#FAF7F2] text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
                 >
-                  <Phone className="w-3.5 h-3.5" />
+                  <Phone className="w-3.5 h-3.5 text-[#E6C994]" />
                   <span>Call {businessSettings.primaryContactName || 'Akbar'}: {businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</span>
                 </a>
               )}

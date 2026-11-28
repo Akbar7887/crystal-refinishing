@@ -25,24 +25,24 @@ export const ServiceArea: React.FC = () => {
   };
 
   return (
-    <section id="service-area" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200">
+    <section id="service-area" className="py-16 sm:py-24 bg-[#F5EFE6] border-b border-[#E6DDD0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100/70 border border-cyan-300 text-[#0284c7] text-xs font-bold uppercase tracking-wider mb-3">
-            <MapPin className="w-3.5 h-3.5 text-[#0284c7]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F6EFE2] border border-[#E2CFAF] text-[#8A652E] text-xs font-bold uppercase tracking-wider mb-3">
+            <MapPin className="w-3.5 h-3.5 text-[#9A723A]" />
             <span>Central Texas Coverage</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#0c2340] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#2B1D16] tracking-tight">
             Service Areas in{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0284c7] to-[#0077e6]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8E6932] via-[#B48A4E] to-[#5C3D2E]">
               Austin & Nearby Communities
             </span>
           </h2>
 
-          <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="mt-3 text-[#5A4639] text-sm sm:text-base leading-relaxed">
             Crystal Refinishing provides professional bathtub, shower base, sink, and countertop refinishing across Austin and surrounding Central Texas cities.
           </p>
         </div>
@@ -50,16 +50,16 @@ export const ServiceArea: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left: ZIP Code Availability Checker */}
-          <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-5">
+          <div className="lg:col-span-5 bg-[#FFFDF9] rounded-3xl p-6 sm:p-8 border border-[#EAE1D3] shadow-sm space-y-5">
             <div>
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0284c7] mb-1">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8A652E] mb-1">
+                <Sparkles className="w-3.5 h-3.5 text-[#9A723A]" />
                 <span>Instant Area Lookup</span>
               </div>
-              <h3 className="text-xl font-bold text-[#0c2340]">
+              <h3 className="text-xl font-bold text-[#2B1D16]">
                 Check Your Austin ZIP Code
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-[#6B574A] mt-1">
                 Enter your 5-digit ZIP code below to verify refinishing service in your neighborhood:
               </p>
             </div>
@@ -74,13 +74,13 @@ export const ServiceArea: React.FC = () => {
                   setSearchResult(null);
                 }}
                 placeholder="e.g. 78704"
-                className="flex-1 px-4 py-3 rounded-xl bg-slate-50 text-slate-900 placeholder-slate-400 border border-slate-300 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+                className="flex-1 px-4 py-3 rounded-xl bg-[#FAF7F2] text-[#2B1D16] placeholder-[#9A8577] border border-[#EAE1D3] text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#9A723A]"
               />
               <button
                 type="submit"
-                className="px-5 py-3 rounded-xl bg-[#0c2340] hover:bg-[#0284c7] text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-colors shadow-xs"
+                className="px-5 py-3 rounded-xl bg-[#5C3D2E] hover:bg-[#462D21] text-[#FAF7F2] font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-colors shadow-xs"
               >
-                <Search className="w-4 h-4 text-cyan-300" />
+                <Search className="w-4 h-4 text-[#E6C994]" />
                 <span>Check</span>
               </button>
             </form>
@@ -89,7 +89,7 @@ export const ServiceArea: React.FC = () => {
               <div className={`p-4 rounded-2xl text-xs border ${
                 searchResult.matched
                   ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
-                  : 'bg-amber-50 border-amber-200 text-amber-800'
+                  : 'bg-[#FAF5EC] border-[#E2CFAF] text-[#5A4639]'
               }`}>
                 {searchResult.matched ? (
                   <div className="flex items-start gap-2.5">
@@ -101,19 +101,19 @@ export const ServiceArea: React.FC = () => {
                   </div>
                 ) : (
                   <div className="flex items-start gap-2.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <AlertTriangle className="w-4 h-4 text-[#9A723A] shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-amber-900 block font-bold">Custom Dispatch Assessment</strong>
+                      <strong className="text-[#2B1D16] block font-bold">Custom Dispatch Assessment</strong>
                       <span>
                         Please call {businessSettings.primaryPhoneEnabled !== false && (businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone) ? (
                           <>
-                            {businessSettings.primaryContactName || 'Akbar'} at <a href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`} className="underline font-bold text-[#0284c7]">{businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</a>
+                            {businessSettings.primaryContactName || 'Akbar'} at <a href={`tel:${(businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone).replace(/\D/g, '')}`} className="underline font-bold text-[#8A652E]">{businessSettings.primaryPhone || BUSINESS_INFO.primaryContact.phone}</a>
                           </>
                         ) : null}
                         {businessSettings.primaryPhoneEnabled !== false && businessSettings.secondaryPhoneEnabled !== false ? ' or ' : ''}
                         {businessSettings.secondaryPhoneEnabled !== false && (businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone) ? (
                           <>
-                            {businessSettings.secondaryContactName || 'Alex'} at <a href={`tel:${(businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone).replace(/\D/g, '')}`} className="underline font-bold text-[#0284c7]">{businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone}</a>
+                            {businessSettings.secondaryContactName || 'Alex'} at <a href={`tel:${(businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone).replace(/\D/g, '')}`} className="underline font-bold text-[#8A652E]">{businessSettings.secondaryPhone || BUSINESS_INFO.secondaryContact.phone}</a>
                           </>
                         ) : null} to check schedule availability for your location.
                       </span>
@@ -123,16 +123,16 @@ export const ServiceArea: React.FC = () => {
               </div>
             )}
 
-            <div className="pt-2 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-500">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+            <div className="pt-2 border-t border-[#EAE1D3] flex items-center gap-2 text-xs text-[#6B574A]">
+              <ShieldCheck className="w-4 h-4 text-[#9A723A] shrink-0" />
               <span>Prompt on-site assessments for homes and rental turnover properties</span>
             </div>
           </div>
 
           {/* Right: Communities Grid */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
-            <h3 className="text-lg font-bold text-[#0c2340] mb-2 flex items-center gap-2">
-              <Droplets className="w-4 h-4 text-[#0284c7]" />
+          <div className="lg:col-span-7 bg-[#FFFDF9] rounded-3xl p-6 sm:p-8 border border-[#EAE1D3] shadow-sm space-y-4">
+            <h3 className="text-lg font-bold text-[#2B1D16] mb-2 flex items-center gap-2">
+              <Droplets className="w-4 h-4 text-[#9A723A]" />
               <span>Coverage by Municipality & Region</span>
             </h3>
 
@@ -140,20 +140,20 @@ export const ServiceArea: React.FC = () => {
               {SERVICE_AREAS.map((area, index) => (
                 <div
                   key={index}
-                  className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 transition-colors"
+                  className="p-3.5 rounded-2xl bg-[#F7F2E9] border border-[#EAE1D3] hover:border-[#C49E62] transition-colors"
                 >
-                  <div className="flex items-center gap-2 text-[#0c2340] font-bold text-xs sm:text-sm">
-                    <MapPin className="w-3.5 h-3.5 text-[#0284c7] shrink-0" />
+                  <div className="flex items-center gap-2 text-[#2B1D16] font-bold text-xs sm:text-sm">
+                    <MapPin className="w-3.5 h-3.5 text-[#9A723A] shrink-0" />
                     <span>{area.name}</span>
                   </div>
-                  <p className="text-[11px] text-slate-500 mt-1 pl-5 leading-relaxed">
+                  <p className="text-[11px] text-[#6B574A] mt-1 pl-5 leading-relaxed">
                     {area.communities}
                   </p>
                 </div>
               ))}
             </div>
 
-            <p className="text-[11px] text-slate-400 pt-2 italic">
+            <p className="text-[11px] text-[#7A6658] pt-2 italic">
               * Structure allows additional service zones to be added as dispatch expands. We serve only areas with reliable coverage.
             </p>
           </div>

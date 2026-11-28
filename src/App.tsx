@@ -61,7 +61,7 @@ function WebsiteContent() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans pb-16 sm:pb-0 relative selection:bg-cyan-200 selection:text-slate-950">
+    <div className="min-h-screen bg-[#FAF7F2] text-[#2B1D16] flex flex-col font-sans pb-16 sm:pb-0 relative selection:bg-[#E8D7BA] selection:text-[#2B1D16]">
       
       {/* 1. Sticky Header & Announcement Bar */}
       <Navbar 
